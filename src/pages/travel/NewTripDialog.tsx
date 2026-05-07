@@ -14,7 +14,7 @@ import { useTravelStore } from "@/store/travel";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 
-const COLORS = ["#10b981", "#6366f1", "#f59e0b", "#ec4899", "#14b8a6", "#8b5cf6"];
+const COLORS = ["#55dc78", "#5fc3f5", "#ffa537", "#f0c34b", "#b89cff", "#f48cb1"];
 const CURRENCIES = ["USD", "EUR", "GBP", "BRL", "JPY", "CAD", "AUD"];
 
 interface NewTripDialogProps {
@@ -117,7 +117,7 @@ export function NewTripDialog({
                     "h-7 w-7 rounded-full border-2 transition-transform",
                     color === c
                       ? "border-white scale-110"
-                      : "border-white/20 hover:scale-105"
+                      : "border-border hover:scale-105"
                   )}
                   style={{ background: c }}
                 />
@@ -130,7 +130,7 @@ export function NewTripDialog({
             <select
               value={currency}
               onChange={(e) => setCurrency(e.target.value)}
-              className="flex h-9 w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+              className="flex h-9 w-full rounded-lg border border-border bg-muted/40 px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
             >
               {CURRENCIES.map((c) => (
                 <option key={c} value={c}>

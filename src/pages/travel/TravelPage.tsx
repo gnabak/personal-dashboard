@@ -65,18 +65,18 @@ export function TravelPage() {
   return (
     <div className="h-[calc(100vh-0px)] md:h-screen flex flex-col">
       <div className="flex flex-col lg:flex-row flex-1 min-h-0">
-        <div className="lg:w-96 lg:border-r border-white/5 flex flex-col gap-3 p-4 lg:p-5 lg:overflow-y-auto scrollbar-thin">
+        <div className="lg:w-96 lg:border-r border-border flex flex-col gap-3 p-4 lg:p-5 lg:overflow-y-auto scrollbar-thin bg-background/95 relative z-10">
           <div className="flex items-center justify-between">
-            <div>
-              <div className="text-[11px] font-semibold uppercase tracking-[0.18em] text-primary/80">
-                Travel
+            <div className="space-y-1">
+              <div className="font-mono text-xs text-comment">
+                <span className="text-comment/70">$</span> ls ~/travel
               </div>
-              <h1 className="text-xl font-semibold leading-tight">
-                Where you're going
+              <h1 className="font-display text-xl font-bold leading-tight text-gold">
+                where you're going
               </h1>
             </div>
             <Button size="sm" onClick={() => setNewTripOpen(true)}>
-              <Plus className="h-3.5 w-3.5" /> Trip
+              <Plus className="h-3.5 w-3.5" /> trip
             </Button>
           </div>
 
@@ -88,20 +88,20 @@ export function TravelPage() {
                 key={f.value}
                 onClick={() => setFilter(f.value)}
                 className={cn(
-                  "rounded-full border px-2.5 py-1 text-xs transition-colors",
+                  "rounded border px-2 py-0.5 text-xs font-mono transition-colors",
                   filter === f.value
-                    ? "border-white/30 bg-white/[0.08]"
-                    : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                    ? "border-gold bg-muted text-gold"
+                    : "border-border bg-transparent text-comment hover:text-foreground hover:bg-muted/60"
                 )}
               >
-                {f.label}
+                {f.label.toLowerCase()}
               </button>
             ))}
           </div>
 
           <div className="space-y-2 mt-1">
-            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
-              Trips
+            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-comment">
+              <span className="text-comment/60">{">"}</span> trips
             </div>
             <TripList
               selectedTripId={selectedTripId}
@@ -110,34 +110,34 @@ export function TravelPage() {
           </div>
 
           <div className="space-y-2 mt-2">
-            <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
-              Destinations
+            <div className="font-mono text-[11px] uppercase tracking-[0.18em] text-comment">
+              <span className="text-comment/60">{">"}</span> destinations
             </div>
             {visibleDestinations.length === 0 ? (
-              <div className="rounded-xl border border-dashed border-white/10 p-3 text-center text-xs text-muted-foreground">
-                Click anywhere on the map to drop a pin.
+              <div className="rounded-md border border-dashed border-border p-3 text-center text-xs font-mono text-comment">
+                <span className="text-comment/60">{"//"}</span> click anywhere on the map to drop a pin
               </div>
             ) : (
-              <ul className="space-y-1">
+              <ul className="space-y-0.5 font-mono">
                 {visibleDestinations.slice(0, 50).map((d) => (
                   <li key={d.id}>
                     <button
                       onClick={() => handleEditDestination(d.id)}
-                      className="w-full text-left flex items-center gap-2 rounded-lg px-2 py-1.5 hover:bg-white/[0.04]"
+                      className="w-full text-left flex items-center gap-2 rounded px-2 py-1 hover:bg-muted line-highlight"
                     >
                       <span
-                        className="h-2 w-2 rounded-full shrink-0"
+                        className="h-1.5 w-1.5 shrink-0"
                         style={{
                           background:
                             d.status === "visited"
-                              ? "#10b981"
+                              ? "#55dc78"
                               : d.status === "planned"
-                                ? "#6366f1"
-                                : "#f59e0b",
+                                ? "#5fc3f5"
+                                : "#ffa537",
                         }}
                       />
                       <span className="text-sm truncate flex-1">{d.name}</span>
-                      <span className="text-[11px] text-muted-foreground capitalize">
+                      <span className="text-[11px] text-comment lowercase">
                         {d.status}
                       </span>
                     </button>
@@ -156,9 +156,9 @@ export function TravelPage() {
             onEditDestination={handleEditDestination}
             onSelectDestination={handleEditDestination}
           />
-          <div className="pointer-events-none absolute left-4 bottom-4 hidden md:flex items-center gap-2 text-xs">
-            <Badge variant="default" className="pointer-events-auto bg-black/50 backdrop-blur">
-              <MapPin className="h-3 w-3 mr-1" /> Click anywhere to add a pin
+          <div className="pointer-events-none absolute left-4 bottom-4 hidden md:flex items-center gap-2 text-xs z-[400]">
+            <Badge variant="default" className="pointer-events-auto bg-background/80 backdrop-blur border-border">
+              <MapPin className="h-3 w-3 mr-1" /> click anywhere to drop a pin
             </Badge>
           </div>
         </div>
@@ -208,9 +208,9 @@ function Stats() {
   };
   return (
     <div className="grid grid-cols-3 gap-2">
-      <Stat label="Wishlist" value={counts.wishlist} color="#f59e0b" />
-      <Stat label="Planned" value={counts.planned} color="#6366f1" />
-      <Stat label="Visited" value={counts.visited} color="#10b981" />
+      <Stat label="wishlist" value={counts.wishlist} color="#ffa537" />
+      <Stat label="planned" value={counts.planned} color="#5fc3f5" />
+      <Stat label="visited" value={counts.visited} color="#55dc78" />
     </div>
   );
 }
@@ -225,15 +225,17 @@ function Stat({
   color: string;
 }) {
   return (
-    <div className="rounded-xl border border-white/10 bg-white/[0.03] p-2.5">
-      <div className="flex items-center gap-1.5 text-[11px] uppercase tracking-wider text-muted-foreground">
+    <div className="rounded-md border border-border bg-muted/40 p-2.5">
+      <div className="flex items-center gap-1.5 font-mono text-[11px] uppercase tracking-[0.18em] text-comment">
         <span
-          className="h-1.5 w-1.5 rounded-full"
+          className="h-1.5 w-1.5 rounded-sm"
           style={{ background: color }}
         />
         {label}
       </div>
-      <div className="text-xl font-semibold mt-0.5">{value}</div>
+      <div className="font-display text-xl font-bold text-gold mt-0.5 tabular-nums">
+        {value}
+      </div>
     </div>
   );
 }

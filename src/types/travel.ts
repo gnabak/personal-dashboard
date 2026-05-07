@@ -47,10 +47,10 @@ export interface Trip {
 }
 
 export const BUDGET_CATEGORIES: { value: BudgetCategory; label: string; color: string }[] = [
-  { value: "flights", label: "Flights", color: "#60a5fa" },
-  { value: "lodging", label: "Lodging", color: "#a78bfa" },
-  { value: "food", label: "Food", color: "#f472b6" },
-  { value: "activities", label: "Activities", color: "#34d399" },
-  { value: "transport", label: "Transport", color: "#facc15" },
-  { value: "other", label: "Other", color: "#94a3b8" },
+  { value: "flights", label: "Flights", color: "#5fc3f5" },
+  { value: "lodging", label: "Lodging", color: "#b89cff" },
+  { value: "food", label: "Food", color: "#ffa537" },
+  { value: "activities", label: "Activities", color: "#55dc78" },
+  { value: "transport", label: "Transport", color: "#f0c34b" },
+  { value: "other", label: "Other", color: "#789b64" },
 ];

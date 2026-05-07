@@ -38,7 +38,7 @@ interface TravelState {
   removePackingItem: (tripId: string, itemId: string) => void;
 }
 
-const TRIP_COLORS = ["#10b981", "#6366f1", "#f59e0b", "#ec4899", "#14b8a6", "#8b5cf6"];
+const TRIP_COLORS = ["#55dc78", "#5fc3f5", "#ffa537", "#f0c34b", "#b89cff", "#f48cb1"];
 
 export const useTravelStore = create<TravelState>()(
   persist(

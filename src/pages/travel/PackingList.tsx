@@ -27,7 +27,7 @@ export function PackingList({ trip }: { trip: Trip }) {
 
   return (
     <div className="space-y-3">
-      <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+      <div className="rounded-xl border border-border bg-muted/40 p-3">
         <div className="flex items-center justify-between text-sm">
           <span className="text-muted-foreground">
             {packed} of {total} packed
@@ -49,7 +49,7 @@ export function PackingList({ trip }: { trip: Trip }) {
       </form>
 
       {trip.packing.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-white/10 p-4 text-center text-sm text-muted-foreground">
+        <div className="rounded-xl border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
           Nothing on the list yet.
         </div>
       ) : (
@@ -58,7 +58,7 @@ export function PackingList({ trip }: { trip: Trip }) {
             <li
               key={p.id}
               className={cn(
-                "group flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2",
+                "group flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-2.5 py-2",
                 p.packed && "opacity-60"
               )}
             >
@@ -68,7 +68,7 @@ export function PackingList({ trip }: { trip: Trip }) {
                   "h-5 w-5 rounded-md border-2 grid place-items-center shrink-0 transition-colors",
                   p.packed
                     ? "bg-primary border-transparent text-primary-foreground"
-                    : "border-white/30 hover:border-white/60"
+                    : "border-border hover:border-comment"
                 )}
                 aria-label={p.packed ? "Mark not packed" : "Mark packed"}
               >

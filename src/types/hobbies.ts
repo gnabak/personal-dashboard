@@ -25,14 +25,14 @@ export interface Hobby {
 }
 
 export const HOBBY_COLORS: { name: string; value: string }[] = [
-  { name: "Emerald", value: "#10b981" },
-  { name: "Sky", value: "#0ea5e9" },
-  { name: "Indigo", value: "#6366f1" },
-  { name: "Violet", value: "#8b5cf6" },
-  { name: "Pink", value: "#ec4899" },
-  { name: "Amber", value: "#f59e0b" },
-  { name: "Rose", value: "#f43f5e" },
-  { name: "Teal", value: "#14b8a6" },
+  { name: "Green", value: "#55dc78" },
+  { name: "Sky", value: "#5fc3f5" },
+  { name: "Gold", value: "#f0c34b" },
+  { name: "Orange", value: "#ffa537" },
+  { name: "Red", value: "#ff6e64" },
+  { name: "Sage", value: "#789b64" },
+  { name: "Violet", value: "#b89cff" },
+  { name: "Pink", value: "#f48cb1" },
 ];
 
 export const HOBBY_ICONS = [

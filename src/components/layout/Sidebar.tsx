@@ -3,27 +3,21 @@ import { LayoutDashboard, Map, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const NAV = [
-  { to: "/", label: "Overview", icon: LayoutDashboard, end: true },
-  { to: "/travel", label: "Travel", icon: Map },
-  { to: "/hobbies", label: "Hobbies", icon: Sparkles },
+  { to: "/", label: "overview", icon: LayoutDashboard, end: true },
+  { to: "/travel", label: "travel", icon: Map },
+  { to: "/hobbies", label: "hobbies", icon: Sparkles },
 ];
 
 export function Sidebar() {
   return (
-    <aside className="hidden md:flex w-60 shrink-0 flex-col gap-6 border-r border-white/5 bg-black/20 backdrop-blur-md p-5">
-      <div className="flex items-center gap-2">
-        <div className="h-9 w-9 rounded-xl bg-gradient-to-br from-emerald-400 to-indigo-500 grid place-items-center text-black font-bold shadow-lg shadow-emerald-500/20">
-          P
-        </div>
-        <div>
-          <div className="text-sm font-semibold leading-tight">Personal</div>
-          <div className="text-xs text-muted-foreground leading-tight">
-            Dashboard
-          </div>
-        </div>
+    <aside className="hidden md:flex w-60 shrink-0 flex-col gap-6 border-r border-border bg-muted/40 p-5 relative z-10">
+      <div className="flex items-center gap-2 font-mono">
+        <span className="text-comment">$</span>
+        <span className="font-bold text-gold">~/dashboard</span>
+        <span className="text-green animate-blink">_</span>
       </div>
 
-      <nav className="flex flex-col gap-1">
+      <nav className="flex flex-col gap-0.5">
         {NAV.map((item) => (
           <NavLink
             key={item.to}
@@ -31,22 +25,40 @@ export function Sidebar() {
             end={item.end}
             className={({ isActive }) =>
               cn(
-                "flex items-center gap-3 rounded-xl px-3 py-2 text-sm font-medium transition-colors",
+                "group flex items-center gap-3 rounded-md px-3 py-1.5 text-sm font-mono transition-colors",
                 isActive
-                  ? "bg-white/[0.08] text-foreground shadow ring-accent"
-                  : "text-muted-foreground hover:text-foreground hover:bg-white/[0.04]"
+                  ? "bg-muted text-gold"
+                  : "text-comment hover:text-foreground hover:bg-muted/60"
               )
             }
           >
-            <item.icon className="h-4 w-4" />
-            {item.label}
+            {({ isActive }) => (
+              <>
+                <span
+                  className={cn(
+                    "w-3 text-center",
+                    isActive ? "text-green" : "text-comment/60"
+                  )}
+                >
+                  {isActive ? "›" : " "}
+                </span>
+                <item.icon className="h-3.5 w-3.5" />
+                <span>{item.label}</span>
+              </>
+            )}
           </NavLink>
         ))}
       </nav>
 
-      <div className="mt-auto text-[11px] text-muted-foreground/70 leading-relaxed">
-        Your data is stored locally in this browser. Use the Overview page to
-        export a backup.
+      <div className="mt-auto pt-4 border-t border-border text-[11px] font-mono leading-relaxed text-comment">
+        <p>
+          <span className="text-comment/70">{"//"}</span> data persists in
+          this browser
+        </p>
+        <p>
+          <span className="text-comment/70">{"//"}</span> use{" "}
+          <span className="text-orange">/</span> to backup
+        </p>
       </div>
     </aside>
   );
@@ -54,7 +66,7 @@ export function Sidebar() {
 
 export function MobileBar() {
   return (
-    <nav className="md:hidden flex items-center justify-around gap-1 sticky top-0 z-40 border-b border-white/5 bg-black/30 backdrop-blur-md px-2 py-2">
+    <nav className="md:hidden flex items-center justify-around gap-1 sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm px-2 py-2">
       {NAV.map((item) => (
         <NavLink
           key={item.to}
@@ -62,14 +74,12 @@ export function MobileBar() {
           end={item.end}
           className={({ isActive }) =>
             cn(
-              "flex flex-1 flex-col items-center gap-1 rounded-lg px-2 py-1.5 text-[11px]",
-              isActive
-                ? "bg-white/[0.08] text-foreground"
-                : "text-muted-foreground"
+              "flex flex-1 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[11px] font-mono",
+              isActive ? "bg-muted text-gold" : "text-comment"
             )
           }
         >
-          <item.icon className="h-4 w-4" />
+          <item.icon className="h-3.5 w-3.5" />
           {item.label}
         </NavLink>
       ))}

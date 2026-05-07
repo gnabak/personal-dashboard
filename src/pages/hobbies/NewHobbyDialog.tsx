@@ -110,8 +110,8 @@ export function NewHobbyDialog({
                     className={cn(
                       "h-10 w-10 grid place-items-center rounded-lg border transition-colors",
                       active
-                        ? "border-white/30 bg-white/10"
-                        : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                        ? "border-gold bg-muted"
+                        : "border-border bg-muted/40 hover:bg-muted/60"
                     )}
                     style={active ? { color } : undefined}
                   >
@@ -135,7 +135,7 @@ export function NewHobbyDialog({
                     "h-7 w-7 rounded-full border-2 transition-transform",
                     color === c.value
                       ? "border-white scale-110"
-                      : "border-white/20 hover:scale-105"
+                      : "border-border hover:scale-105"
                   )}
                   style={{ background: c.value }}
                 />

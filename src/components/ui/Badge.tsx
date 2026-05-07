@@ -16,15 +16,17 @@ export function Badge({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded-full px-2 py-0.5 text-xs font-medium border",
-        variant === "default" && "bg-white/10 border-white/10 text-foreground",
-        variant === "outline" && "bg-transparent border-white/20 text-foreground",
-        variant === "soft" && "border-transparent",
+        "inline-flex items-center rounded px-2 py-0.5 text-[11px] font-mono border leading-tight",
+        variant === "default" &&
+          "bg-muted border-border text-orange",
+        variant === "outline" &&
+          "bg-transparent border-border text-comment",
+        variant === "soft" && "border-transparent bg-muted",
         className
       )}
       style={
         variant === "soft" && color
-          ? { background: `${color}1f`, color, ...style }
+          ? { color, borderColor: `${color}40`, ...style }
           : style
       }
       {...props}
