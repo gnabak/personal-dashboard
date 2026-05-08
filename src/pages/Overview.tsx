@@ -171,20 +171,20 @@ export function Overview() {
   return (
     <div className="p-4 sm:p-8 max-w-6xl mx-auto space-y-8 animate-fade-in">
       <PageHeader
-        eyebrow={format(new Date(), "EEEE, MMM d")}
-        title={`${greeting}.`}
-        description="A bird's-eye view of what you're chasing right now."
+        eyebrow={`last login: ${format(new Date(), "EEEE, MMM d HH:mm").toLowerCase()}`}
+        title={`${greeting.toLowerCase()}.`}
+        description="a bird's-eye view of what you're chasing right now."
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" onClick={handleExport}>
-              <Download className="h-3.5 w-3.5" /> Export
+              <Download className="h-3.5 w-3.5" /> export
             </Button>
             <Button
               variant="secondary"
               size="sm"
               onClick={() => fileInput.current?.click()}
             >
-              <Upload className="h-3.5 w-3.5" /> Import
+              <Upload className="h-3.5 w-3.5" /> import
             </Button>
             <input
               ref={fileInput}
@@ -200,31 +200,31 @@ export function Overview() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard
           icon={<Sparkles className="h-4 w-4" />}
-          label="Active hobbies"
+          label="active hobbies"
           value={stats.hobbies}
-          accent="#10b981"
+          accent="#55dc78"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Check className="h-4 w-4" />}
-          label="Milestones this month"
+          label="milestones this month"
           value={stats.milestonesDoneThisMonth}
-          accent="#6366f1"
+          accent="#5fc3f5"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Clock className="h-4 w-4" />}
-          label="Logged this week"
+          label="logged this week"
           value={formatMinutes(stats.minutesThisWeek)}
-          accent="#f59e0b"
+          accent="#ffa537"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Map className="h-4 w-4" />}
-          label="Trips planned"
+          label="trips planned"
           value={stats.trips}
           subValue={`${stats.visited} visited · ${stats.wishlist} wishlist`}
-          accent="#ec4899"
+          accent="#f0c34b"
           to="/travel"
         />
       </div>
@@ -232,22 +232,24 @@ export function Overview() {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 glass p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold">Hobbies in progress</h2>
+            <h2 className="font-display text-lg font-bold text-gold">
+              <span className="text-comment mr-2">$</span>./hobbies-in-progress
+            </h2>
             <Link
               to="/hobbies"
-              className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+              className="font-mono text-xs text-comment hover:text-green inline-flex items-center gap-1 transition-colors"
             >
-              View all <ArrowRight className="h-3 w-3" />
+              cd ~/hobbies <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
           {hobbies.length === 0 ? (
             <EmptyHint
-              text="No hobbies yet."
-              cta="Add one"
+              text="// no hobbies yet."
+              cta="add one"
               to="/hobbies"
             />
           ) : (
-            <ul className="space-y-3">
+            <ul className="space-y-2">
               {hobbies.slice(0, 4).map((h) => {
                 const total = h.milestones.length;
                 const done = h.milestones.filter((m) => m.done).length;
@@ -255,18 +257,20 @@ export function Overview() {
                 return (
                   <li
                     key={h.id}
-                    className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
+                    className="rounded-md border border-border bg-muted/40 p-3"
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <div className="font-medium text-sm">{h.name}</div>
-                      <div className="text-xs text-muted-foreground">
+                      <div className="font-mono text-sm text-foreground">
+                        {h.name}
+                      </div>
+                      <div className="font-mono text-xs text-comment tabular-nums">
                         {done}/{total}
                       </div>
                     </div>
                     <Progress
-                      className="mt-2 h-1.5"
+                      className="mt-2 h-1"
                       value={pct}
-                      indicatorColor={`linear-gradient(90deg, ${h.accentColor}, ${h.accentColor}aa)`}
+                      indicatorColor={h.accentColor}
                     />
                   </li>
                 );
@@ -277,40 +281,42 @@ export function Overview() {
 
         <div className="glass p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-semibold">Travel pulse</h2>
+            <h2 className="font-display text-lg font-bold text-gold">
+              <span className="text-comment mr-2">$</span>./travel-pulse
+            </h2>
             <Link
               to="/travel"
-              className="text-xs text-muted-foreground hover:text-foreground inline-flex items-center gap-1"
+              className="font-mono text-xs text-comment hover:text-green inline-flex items-center gap-1 transition-colors"
             >
-              Open map <ArrowRight className="h-3 w-3" />
+              cd ~/travel <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
           {trips.length === 0 && destinations.length === 0 ? (
-            <EmptyHint text="No trips or pins yet." cta="Plan one" to="/travel" />
+            <EmptyHint text="// no trips or pins yet." cta="plan one" to="/travel" />
           ) : (
             <ul className="space-y-2">
               {trips.slice(0, 4).map((t) => (
                 <li
                   key={t.id}
-                  className="rounded-xl border border-white/10 bg-white/[0.03] p-3"
+                  className="rounded-md border border-border bg-muted/40 p-3"
                 >
                   <div className="flex items-center gap-2">
                     <span
-                      className="h-2 w-2 rounded-full"
+                      className="h-1.5 w-1.5 rounded-sm"
                       style={{ background: t.coverColor }}
                     />
-                    <div className="font-medium text-sm flex-1 truncate">
+                    <div className="font-mono text-sm flex-1 truncate">
                       {t.title}
                     </div>
-                    <span className="text-xs text-muted-foreground">
+                    <span className="font-mono text-[11px] text-comment">
                       {t.destinationIds.length} stops
                     </span>
                   </div>
                 </li>
               ))}
               {trips.length === 0 && destinations.length > 0 && (
-                <li className="text-xs text-muted-foreground">
-                  {destinations.length} destinations pinned, no trips yet.
+                <li className="font-mono text-xs text-comment">
+                  // {destinations.length} destinations pinned, no trips yet
                 </li>
               )}
             </ul>
@@ -319,24 +325,27 @@ export function Overview() {
       </div>
 
       <div className="glass p-6 space-y-4">
-        <h2 className="font-semibold">Recent activity</h2>
+        <h2 className="font-display text-lg font-bold text-gold">
+          <span className="text-comment mr-2">$</span>tail -n 12 activity.log
+        </h2>
         {activity.length === 0 ? (
-          <p className="text-sm text-muted-foreground">
-            Nothing here yet. Complete a milestone, log a session, or pin a
-            destination — it'll show up here.
+          <p className="font-mono text-sm text-comment">
+            <span className="text-comment/60">{"//"}</span> nothing here yet.
+            complete a milestone, log a session, or pin a destination — it'll
+            show up here.
           </p>
         ) : (
-          <ul className="space-y-2">
+          <ul className="space-y-1.5">
             {activity.map((a) => (
               <li
                 key={a.id}
-                className="flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"
+                className="flex items-start gap-3 rounded-md border border-border bg-muted/40 px-3 py-2"
               >
                 <ActivityIcon kind={a.kind} color={a.color} />
                 <div className="flex-1 min-w-0">
-                  <div className="text-sm">{a.title}</div>
+                  <div className="font-mono text-sm">{a.title}</div>
                   {a.detail && (
-                    <div className="text-xs text-muted-foreground truncate">
+                    <div className="font-mono text-xs text-comment truncate">
                       {a.detail}
                     </div>
                   )}
@@ -371,27 +380,29 @@ function SummaryCard({
   return (
     <Link
       to={to}
-      className="group glass glass-hover p-5 transition-transform hover:-translate-y-0.5"
+      className="group glass glass-hover p-4 transition-colors block"
     >
       <div className="flex items-center justify-between">
         <div
-          className="h-8 w-8 rounded-lg grid place-items-center border"
+          className="h-7 w-7 rounded-sm grid place-items-center border"
           style={{
-            background: `${accent}1a`,
-            borderColor: `${accent}40`,
+            background: `${accent}14`,
+            borderColor: `${accent}50`,
             color: accent,
           }}
         >
           {icon}
         </div>
-        <ArrowRight className="h-4 w-4 text-muted-foreground/50 group-hover:text-foreground transition-colors" />
+        <ArrowRight className="h-3.5 w-3.5 text-comment/60 group-hover:text-green transition-colors" />
       </div>
-      <div className="mt-3 text-[11px] uppercase tracking-wider text-muted-foreground">
+      <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-comment">
         {label}
       </div>
-      <div className="text-2xl font-semibold mt-1">{value}</div>
+      <div className="font-display text-2xl font-bold mt-1 text-foreground tabular-nums">
+        {value}
+      </div>
       {subValue && (
-        <div className="text-xs text-muted-foreground mt-0.5">{subValue}</div>
+        <div className="font-mono text-xs text-comment mt-0.5">{subValue}</div>
       )}
     </Link>
   );
@@ -404,19 +415,19 @@ function ActivityIcon({
   kind: ActivityItem["kind"];
   color?: string;
 }) {
-  const c = color ?? "#94a3b8";
+  const c = color ?? "#789b64";
   const Icon =
     kind === "milestone" ? Check : kind === "session" ? Clock : MapPin;
   return (
     <div
-      className="h-7 w-7 rounded-lg grid place-items-center border shrink-0"
+      className="h-6 w-6 rounded-sm grid place-items-center border shrink-0"
       style={{
-        background: `${c}1a`,
-        borderColor: `${c}40`,
+        background: `${c}14`,
+        borderColor: `${c}50`,
         color: c,
       }}
     >
-      <Icon className="h-3.5 w-3.5" />
+      <Icon className="h-3 w-3" />
     </div>
   );
 }
@@ -431,11 +442,11 @@ function EmptyHint({
   to: string;
 }) {
   return (
-    <div className="rounded-xl border border-dashed border-white/10 p-6 text-center text-sm text-muted-foreground space-y-2">
+    <div className="rounded-md border border-dashed border-border p-6 text-center font-mono text-sm text-comment space-y-2">
       <div>{text}</div>
       <Link
         to={to}
-        className="inline-flex items-center gap-1 text-primary hover:underline"
+        className="inline-flex items-center gap-1 text-green hover:underline underline-offset-4 decoration-green/40 hover:decoration-green"
       >
         {cta} <ArrowRight className="h-3 w-3" />
       </Link>

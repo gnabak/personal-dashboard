@@ -4,25 +4,26 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xl text-sm font-medium transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-0 disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-4 [&_svg]:shrink-0",
+  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-mono transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5 [&_svg]:shrink-0",
   {
     variants: {
       variant: {
         default:
-          "bg-primary text-primary-foreground hover:bg-primary/90 shadow shadow-emerald-500/20",
+          "bg-transparent border border-green text-green hover:bg-green hover:text-background",
         secondary:
-          "bg-white/[0.06] text-foreground border border-white/10 hover:bg-white/[0.1]",
-        ghost: "hover:bg-white/[0.06] text-foreground",
+          "bg-muted border border-border text-foreground hover:bg-border hover:text-gold",
+        ghost:
+          "bg-transparent text-comment hover:text-green hover:bg-muted/60",
         outline:
-          "border border-white/15 bg-transparent text-foreground hover:bg-white/[0.06]",
+          "border border-border bg-transparent text-foreground hover:bg-muted hover:border-comment",
         destructive:
-          "bg-destructive/90 text-destructive-foreground hover:bg-destructive",
-        link: "text-primary underline-offset-4 hover:underline",
+          "bg-transparent border border-red text-red hover:bg-red hover:text-background",
+        link: "text-green underline underline-offset-4 decoration-green/40 hover:decoration-green",
       },
       size: {
-        default: "h-9 px-4",
+        default: "h-9 px-3.5",
         sm: "h-8 px-3 text-xs",
-        lg: "h-10 px-6",
+        lg: "h-10 px-5",
         icon: "h-9 w-9",
       },
     },

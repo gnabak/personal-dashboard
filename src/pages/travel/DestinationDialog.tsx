@@ -26,9 +26,9 @@ interface DestinationDialogProps {
 }
 
 const STATUSES: { value: DestinationStatus; label: string; color: string }[] = [
-  { value: "wishlist", label: "Wishlist", color: "#f59e0b" },
-  { value: "planned", label: "Planned", color: "#6366f1" },
-  { value: "visited", label: "Visited", color: "#10b981" },
+  { value: "wishlist", label: "wishlist", color: "#ffa537" },
+  { value: "planned", label: "planned", color: "#5fc3f5" },
+  { value: "visited", label: "visited", color: "#55dc78" },
 ];
 
 export function DestinationDialog({
@@ -152,8 +152,8 @@ export function DestinationDialog({
                   className={cn(
                     "flex-1 flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors",
                     status === s.value
-                      ? "border-white/30 bg-white/[0.08]"
-                      : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                      ? "border-gold bg-muted"
+                      : "border-border bg-muted/40 hover:bg-muted/60"
                   )}
                 >
                   <span
@@ -172,7 +172,7 @@ export function DestinationDialog({
               id="dest-trip"
               value={tripId}
               onChange={(e) => setTripId(e.target.value)}
-              className="flex h-9 w-full rounded-lg border border-white/10 bg-white/[0.04] px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+              className="flex h-9 w-full rounded-lg border border-border bg-muted/40 px-3 text-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
             >
               <option value="">No trip</option>
               {trips.map((t) => (

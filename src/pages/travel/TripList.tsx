@@ -16,7 +16,7 @@ export function TripList({ selectedTripId, onSelect }: TripListProps) {
 
   if (trips.length === 0) {
     return (
-      <div className="rounded-xl border border-dashed border-white/10 p-4 text-center text-sm text-muted-foreground">
+      <div className="rounded-xl border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
         No trips yet. Create one to start planning.
       </div>
     );
@@ -62,8 +62,8 @@ function TripRow({
         className={cn(
           "w-full text-left rounded-xl border px-3 py-3 transition-colors flex items-center gap-3",
           selected
-            ? "border-white/25 bg-white/[0.08]"
-            : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+            ? "border-gold bg-muted"
+            : "border-border bg-muted/40 hover:bg-muted/60"
         )}
       >
         <div

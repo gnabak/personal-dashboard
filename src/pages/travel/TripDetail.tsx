@@ -132,7 +132,7 @@ export function TripDetail({
               </div>
 
               {tripDestinations.length === 0 ? (
-                <div className="rounded-xl border border-dashed border-white/10 p-4 text-center text-sm text-muted-foreground">
+                <div className="rounded-xl border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
                   No stops yet. Add one above, or click on the map.
                 </div>
               ) : (
@@ -140,9 +140,9 @@ export function TripDetail({
                   {tripDestinations.map((d, i) => (
                     <li
                       key={d.id}
-                      className="group flex items-center gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"
+                      className="group flex items-center gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2"
                     >
-                      <div className="h-6 w-6 rounded-full bg-white/[0.06] grid place-items-center text-xs text-muted-foreground shrink-0">
+                      <div className="h-6 w-6 rounded-full bg-muted/60 grid place-items-center text-xs text-muted-foreground shrink-0">
                         {i + 1}
                       </div>
                       <button
@@ -158,10 +158,10 @@ export function TripDetail({
                             style={{
                               background:
                                 d.status === "visited"
-                                  ? "#10b981"
+                                  ? "#55dc78"
                                   : d.status === "planned"
-                                    ? "#6366f1"
-                                    : "#f59e0b",
+                                    ? "#5fc3f5"
+                                    : "#ffa537",
                             }}
                           />
                           {d.status}
@@ -193,7 +193,7 @@ export function TripDetail({
           </TabsContent>
         </Tabs>
 
-        <div className="mt-6 pt-4 border-t border-white/10 flex justify-between">
+        <div className="mt-6 pt-4 border-t border-border flex justify-between">
           <Button
             variant="destructive"
             size="sm"

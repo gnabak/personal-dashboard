@@ -45,7 +45,7 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-white/10 bg-white/[0.03] p-4">
+      <div className="rounded-xl border border-border bg-muted/40 p-4">
         <div className="flex items-baseline justify-between">
           <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
             Total budget
@@ -73,7 +73,7 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
                     </span>
                   </span>
                 </div>
-                <div className="mt-1 h-1.5 rounded-full bg-white/[0.05] overflow-hidden">
+                <div className="mt-1 h-1.5 rounded-sm bg-muted border border-border overflow-hidden">
                   <div
                     className="h-full rounded-full transition-all duration-500"
                     style={{ width: `${pct}%`, background: c.color }}
@@ -87,7 +87,7 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
 
       <form
         onSubmit={handleAdd}
-        className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-2"
+        className="rounded-xl border border-border bg-muted/40 p-3 space-y-2"
       >
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1">
@@ -120,8 +120,8 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
                 className={cn(
                   "rounded-full border px-2.5 py-1 text-xs transition-colors",
                   category === c.value
-                    ? "border-white/30 bg-white/[0.08]"
-                    : "border-white/10 bg-white/[0.03] hover:bg-white/[0.06]"
+                    ? "border-gold bg-muted"
+                    : "border-border bg-muted/40 hover:bg-muted/60"
                 )}
               >
                 <span
@@ -141,7 +141,7 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
       </form>
 
       {trip.budget.length === 0 ? (
-        <div className="rounded-xl border border-dashed border-white/10 p-4 text-center text-sm text-muted-foreground">
+        <div className="rounded-xl border border-dashed border-border p-4 text-center text-sm text-muted-foreground">
           No expenses yet.
         </div>
       ) : (
@@ -151,11 +151,11 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
             return (
               <li
                 key={b.id}
-                className="group flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"
+                className="group flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-3 py-2"
               >
                 <span
                   className="h-2 w-2 rounded-full shrink-0"
-                  style={{ background: cat?.color ?? "#94a3b8" }}
+                  style={{ background: cat?.color ?? "#789b64" }}
                 />
                 <span className="flex-1 text-sm truncate">{b.label}</span>
                 <span className="text-xs text-muted-foreground">

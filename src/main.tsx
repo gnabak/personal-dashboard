@@ -15,9 +15,11 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
         position="bottom-right"
         toastOptions={{
           style: {
-            background: "hsl(222 47% 12%)",
-            border: "1px solid hsl(215 28% 22%)",
-            color: "hsl(210 40% 98%)",
+            background: "rgb(25, 25, 35)",
+            border: "1px solid rgb(50, 50, 60)",
+            color: "rgb(225, 218, 200)",
+            fontFamily: "JetBrains Mono, monospace",
+            fontSize: "13px",
           },
         }}
       />

@@ -15,7 +15,7 @@ export const Progress = React.forwardRef<
   <ProgressPrimitive.Root
     ref={ref}
     className={cn(
-      "relative h-2 w-full overflow-hidden rounded-full bg-white/10",
+      "relative h-1.5 w-full overflow-hidden rounded-sm bg-muted border border-border",
       className
     )}
     {...props}
@@ -24,9 +24,7 @@ export const Progress = React.forwardRef<
       className="h-full transition-all duration-500 ease-out"
       style={{
         width: `${Math.min(100, Math.max(0, value))}%`,
-        background:
-          indicatorColor ??
-          "linear-gradient(90deg, hsl(152 76% 50%), hsl(217 90% 65%))",
+        background: indicatorColor ?? "rgb(var(--color-gold))",
       }}
     />
   </ProgressPrimitive.Root>

@@ -63,7 +63,7 @@ export function HobbyDetail({ hobby, open, onOpenChange }: HobbyDetailProps) {
               </p>
             )}
             <div className="mt-3 grid grid-cols-2 gap-2">
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+              <div className="rounded-lg border border-border bg-muted/40 p-2.5">
                 <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   Progress
                 </div>
@@ -74,7 +74,7 @@ export function HobbyDetail({ hobby, open, onOpenChange }: HobbyDetailProps) {
                   indicatorColor={`linear-gradient(90deg, ${accent}, ${accent}aa)`}
                 />
               </div>
-              <div className="rounded-lg border border-white/10 bg-white/[0.03] p-2.5">
+              <div className="rounded-lg border border-border bg-muted/40 p-2.5">
                 <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
                   Time logged
                 </div>
@@ -169,7 +169,7 @@ function MilestonesTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
             <li
               key={m.id}
               className={cn(
-                "group flex items-center gap-2 rounded-lg border border-white/10 bg-white/[0.03] px-2.5 py-2",
+                "group flex items-center gap-2 rounded-lg border border-border bg-muted/40 px-2.5 py-2",
                 m.done && "opacity-60"
               )}
             >
@@ -179,7 +179,7 @@ function MilestonesTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
                   "h-5 w-5 rounded-full border-2 grid place-items-center shrink-0 transition-colors",
                   m.done
                     ? "border-transparent text-black"
-                    : "border-white/30 hover:border-white/60"
+                    : "border-border hover:border-comment"
                 )}
                 style={m.done ? { background: accent } : undefined}
                 aria-label={m.done ? "Mark incomplete" : "Mark complete"}
@@ -246,7 +246,7 @@ function SessionsTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
 
   return (
     <div className="space-y-4">
-      <div className="rounded-xl border border-white/10 bg-white/[0.03] p-3">
+      <div className="rounded-xl border border-border bg-muted/40 p-3">
         <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
           Last 8 weeks
         </div>
@@ -271,7 +271,7 @@ function SessionsTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
 
       <form
         onSubmit={handleAdd}
-        className="rounded-xl border border-white/10 bg-white/[0.03] p-3 space-y-2"
+        className="rounded-xl border border-border bg-muted/40 p-3 space-y-2"
       >
         <div className="grid grid-cols-2 gap-2">
           <div className="space-y-1">
@@ -314,7 +314,7 @@ function SessionsTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
           {sorted.map((s) => (
             <li
               key={s.id}
-              className="group flex items-start gap-3 rounded-lg border border-white/10 bg-white/[0.03] px-3 py-2"
+              className="group flex items-start gap-3 rounded-lg border border-border bg-muted/40 px-3 py-2"
             >
               <div className="text-xs text-muted-foreground shrink-0 w-20 pt-0.5 inline-flex items-center gap-1">
                 <CalendarDays className="h-3 w-3" />
@@ -411,7 +411,7 @@ function AboutTab({
 
 function EmptyHint({ children }: { children: React.ReactNode }) {
   return (
-    <div className="rounded-xl border border-dashed border-white/10 px-4 py-6 text-center text-sm text-muted-foreground">
+    <div className="rounded-xl border border-dashed border-border px-4 py-6 text-center text-sm text-muted-foreground">
       {children}
     </div>
   );
