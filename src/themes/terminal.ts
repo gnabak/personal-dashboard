@@ -40,7 +40,7 @@ export const terminalTheme: Theme = {
   copy: {
     brand: "~/dashboard",
     tagline: "// data persists in this browser",
-    nav: { overview: "overview", travel: "travel", hobbies: "hobbies" },
+    nav: { overview: "overview", travel: "travel", hobbies: "hobbies", finance: "finance" },
     greeting: {
       morning: "good morning.",
       afternoon: "good afternoon.",
@@ -91,6 +91,39 @@ export const terminalTheme: Theme = {
         description:
           "// a hobby is just a goal you've decided is fun. add one and start tracking milestones and time.",
         cta: "add your first hobby",
+      },
+    },
+    finance: {
+      eyebrow: "ls ~/finance",
+      title: "money in / money out",
+      description:
+        "track spending, log positions, set goals. import a csv when you have one.",
+      tabs: {
+        overview: "overview",
+        transactions: "transactions",
+        investments: "positions",
+        goals: "goals",
+      },
+      actions: {
+        addAccount: "new account",
+        addTransaction: "log tx",
+        importCsv: "import csv",
+        addHolding: "add holding",
+        addGoal: "new goal",
+        refreshPrices: "refresh prices",
+      },
+      fields: {
+        netThisMonth: "net this month",
+        spendingThisMonth: "spent this month",
+        incomeThisMonth: "earned this month",
+        portfolioValue: "portfolio value",
+        gainLoss: "gain / loss",
+      },
+      emptyStates: {
+        accounts: { text: "// no accounts yet.", cta: "add one" },
+        transactions: "// no transactions in this view.",
+        holdings: "// no holdings tracked yet.",
+        goals: "// no finance goals yet.",
       },
     },
     footer: [

@@ -45,7 +45,12 @@ export const quartzTheme: Theme = {
   copy: {
     brand: "Portfolio",
     tagline: "Personal goals, run like a desk.",
-    nav: { overview: "Dashboard", travel: "Markets", hobbies: "Positions" },
+    nav: {
+      overview: "Dashboard",
+      travel: "Travel",
+      hobbies: "Positions",
+      finance: "Markets",
+    },
     greeting: {
       morning: "Good morning.",
       afternoon: "Good afternoon.",
@@ -57,36 +62,36 @@ export const quartzTheme: Theme = {
       description: "Real-time view of your personal portfolio.",
       sections: {
         hobbiesInProgress: "Active positions",
-        travelPulse: "Watchlist",
+        travelPulse: "Travel",
         activity: "Trade log",
       },
       cards: {
         hobbies: "Open positions",
         milestones: "Closed this month",
         logged: "Time deployed",
-        trips: "Watchlist size",
+        trips: "Trips planned",
       },
       actions: { export: "Export book", import: "Import book" },
-      links: { hobbies: "View positions", travel: "View watchlist" },
+      links: { hobbies: "View positions", travel: "Open map" },
       emptyHints: {
         hobbies: { text: "No open positions.", cta: "Open one" },
-        travel: { text: "Watchlist is empty.", cta: "Add an item" },
+        travel: { text: "No trips yet.", cta: "Plan one" },
         activity:
-          "No trades yet. Close a milestone, log a session, or pin a destination — entries land here.",
+          "No entries yet. Close a milestone, log a session, or pin a destination — entries land here.",
       },
     },
     travel: {
-      eyebrow: "Markets",
-      title: "Watchlist",
-      newTrip: "New basket",
+      eyebrow: "Travel",
+      title: "Where you're going",
+      newTrip: "New trip",
       statusLabels: {
-        wishlist: "Watching",
-        planned: "Open",
-        visited: "Closed",
+        wishlist: "Wishlist",
+        planned: "Planned",
+        visited: "Visited",
       },
-      sectionLabels: { trips: "Baskets", destinations: "Tickers" },
-      mapHint: "Click anywhere to add a ticker",
-      emptyDestinations: "Click anywhere on the map to add a ticker.",
+      sectionLabels: { trips: "Trips", destinations: "Destinations" },
+      mapHint: "Click anywhere to add a pin",
+      emptyDestinations: "Click anywhere on the map to drop a pin.",
       filters: { all: "All" },
     },
     hobbies: {
@@ -100,6 +105,39 @@ export const quartzTheme: Theme = {
         description:
           "A position is anything you're putting time and intention into. Open one to begin tracking.",
         cta: "Open a position",
+      },
+    },
+    finance: {
+      eyebrow: "Markets",
+      title: "Portfolio & cash flow",
+      description:
+        "Cash in, cash out, positions held. Import statements when you have them.",
+      tabs: {
+        overview: "Overview",
+        transactions: "Transactions",
+        investments: "Positions",
+        goals: "Mandates",
+      },
+      actions: {
+        addAccount: "New account",
+        addTransaction: "New entry",
+        importCsv: "Import statement",
+        addHolding: "Open position",
+        addGoal: "New mandate",
+        refreshPrices: "Refresh marks",
+      },
+      fields: {
+        netThisMonth: "Net P&L this month",
+        spendingThisMonth: "Cash out",
+        incomeThisMonth: "Cash in",
+        portfolioValue: "Mark-to-market",
+        gainLoss: "Unrealized P&L",
+      },
+      emptyStates: {
+        accounts: { text: "No accounts on the books.", cta: "Open one" },
+        transactions: "No entries in this view.",
+        holdings: "No open positions.",
+        goals: "No active mandates.",
       },
     },
     footer: [

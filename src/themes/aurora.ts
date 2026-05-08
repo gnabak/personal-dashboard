@@ -47,7 +47,7 @@ export const auroraTheme: Theme = {
   copy: {
     brand: "Dashboard",
     tagline: "Personal goals, beautifully tracked.",
-    nav: { overview: "Overview", travel: "Travel", hobbies: "Hobbies" },
+    nav: { overview: "Overview", travel: "Travel", hobbies: "Hobbies", finance: "Finance" },
     greeting: {
       morning: "Good morning.",
       afternoon: "Good afternoon.",
@@ -97,6 +97,39 @@ export const auroraTheme: Theme = {
         description:
           "A hobby is a goal you've decided is fun. Add one to start tracking milestones and time.",
         cta: "Add your first hobby",
+      },
+    },
+    finance: {
+      eyebrow: "Finance",
+      title: "Money in & out",
+      description:
+        "Track spending, hold positions, plan toward goals. Import a CSV when convenient.",
+      tabs: {
+        overview: "Overview",
+        transactions: "Transactions",
+        investments: "Investments",
+        goals: "Goals",
+      },
+      actions: {
+        addAccount: "New account",
+        addTransaction: "Add transaction",
+        importCsv: "Import CSV",
+        addHolding: "Add holding",
+        addGoal: "New goal",
+        refreshPrices: "Refresh prices",
+      },
+      fields: {
+        netThisMonth: "Net this month",
+        spendingThisMonth: "Spent this month",
+        incomeThisMonth: "Earned this month",
+        portfolioValue: "Portfolio value",
+        gainLoss: "Gain / Loss",
+      },
+      emptyStates: {
+        accounts: { text: "No accounts yet.", cta: "Add one" },
+        transactions: "No transactions in this view.",
+        holdings: "No holdings tracked yet.",
+        goals: "No finance goals yet.",
       },
     },
     footer: [

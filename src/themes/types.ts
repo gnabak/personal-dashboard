@@ -69,7 +69,7 @@ export interface ThemeCopy {
   brand: string;
   tagline: string;
 
-  nav: { overview: string; travel: string; hobbies: string };
+  nav: { overview: string; travel: string; hobbies: string; finance: string };
 
   greeting: {
     morning: string;
@@ -118,6 +118,39 @@ export interface ThemeCopy {
     description: string;
     newHobby: string;
     emptyState: { title: string; description: string; cta: string };
+  };
+
+  finance: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    tabs: {
+      overview: string;
+      transactions: string;
+      investments: string;
+      goals: string;
+    };
+    actions: {
+      addAccount: string;
+      addTransaction: string;
+      importCsv: string;
+      addHolding: string;
+      addGoal: string;
+      refreshPrices: string;
+    };
+    fields: {
+      netThisMonth: string;
+      spendingThisMonth: string;
+      incomeThisMonth: string;
+      portfolioValue: string;
+      gainLoss: string;
+    };
+    emptyStates: {
+      accounts: { text: string; cta: string };
+      transactions: string;
+      holdings: string;
+      goals: string;
+    };
   };
 
   /** Sidebar footer / fine print, two short lines */
