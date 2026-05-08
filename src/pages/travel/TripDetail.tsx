@@ -158,10 +158,10 @@ export function TripDetail({
                             style={{
                               background:
                                 d.status === "visited"
-                                  ? "#55dc78"
+                                  ? "rgb(var(--color-primary))"
                                   : d.status === "planned"
-                                    ? "#5fc3f5"
-                                    : "#ffa537",
+                                    ? "rgb(var(--color-cool))"
+                                    : "rgb(var(--color-warm))",
                             }}
                           />
                           {d.status}

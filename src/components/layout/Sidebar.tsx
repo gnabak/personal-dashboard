@@ -1,33 +1,46 @@
 import { NavLink } from "react-router-dom";
 import { LayoutDashboard, Map, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
-
-const NAV = [
-  { to: "/", label: "overview", icon: LayoutDashboard, end: true },
-  { to: "/travel", label: "travel", icon: Map },
-  { to: "/hobbies", label: "hobbies", icon: Sparkles },
-];
+import { useTheme } from "@/themes/context";
+import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
 export function Sidebar() {
+  const theme = useTheme();
+  const items = [
+    { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
+    { to: "/travel", label: theme.copy.nav.travel, icon: Map },
+    { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
+  ];
+  const showPrompt = !!theme.voice.promptPrefix;
+  const isMono = theme.id === "terminal";
+
   return (
     <aside className="hidden md:flex w-60 shrink-0 flex-col gap-6 border-r border-border bg-muted/40 p-5 relative z-10">
-      <div className="flex items-center gap-2 font-mono">
-        <span className="text-comment">$</span>
-        <span className="font-bold text-gold">~/dashboard</span>
-        <span className="text-green animate-blink">_</span>
+      <div
+        className={cn(
+          "flex items-center gap-2",
+          isMono ? "font-mono" : "font-sans"
+        )}
+      >
+        {showPrompt && <span className="text-comment">$</span>}
+        <span className="font-bold text-emphasis">{theme.copy.brand}</span>
+        {theme.voice.brandCursor && (
+          <span className="text-primary animate-blink">_</span>
+        )}
       </div>
 
       <nav className="flex flex-col gap-0.5">
-        {NAV.map((item) => (
+        {items.map((item) => (
           <NavLink
             key={item.to}
             to={item.to}
             end={item.end}
             className={({ isActive }) =>
               cn(
-                "group flex items-center gap-3 rounded-md px-3 py-1.5 text-sm font-mono transition-colors",
+                "group flex items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors",
+                isMono ? "font-mono" : "font-sans",
                 isActive
-                  ? "bg-muted text-gold"
+                  ? "bg-muted text-emphasis"
                   : "text-comment hover:text-foreground hover:bg-muted/60"
               )
             }
@@ -37,7 +50,7 @@ export function Sidebar() {
                 <span
                   className={cn(
                     "w-3 text-center",
-                    isActive ? "text-green" : "text-comment/60"
+                    isActive ? "text-primary" : "text-comment/60"
                   )}
                 >
                   {isActive ? "›" : " "}
@@ -50,32 +63,42 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="mt-auto pt-4 border-t border-border text-[11px] font-mono leading-relaxed text-comment">
-        <p>
-          <span className="text-comment/70">{"//"}</span> data persists in
-          this browser
-        </p>
-        <p>
-          <span className="text-comment/70">{"//"}</span> use{" "}
-          <span className="text-orange">/</span> to backup
-        </p>
+      <div className="mt-auto pt-4 border-t border-border space-y-3">
+        <ThemeSwitcher />
+        <div
+          className={cn(
+            "text-[11px] leading-relaxed text-comment",
+            isMono ? "font-mono" : "font-sans"
+          )}
+        >
+          <p>{theme.copy.footer[0]}</p>
+          <p>{theme.copy.footer[1]}</p>
+        </div>
       </div>
     </aside>
   );
 }
 
 export function MobileBar() {
+  const theme = useTheme();
+  const isMono = theme.id === "terminal";
+  const items = [
+    { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
+    { to: "/travel", label: theme.copy.nav.travel, icon: Map },
+    { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
+  ];
   return (
     <nav className="md:hidden flex items-center justify-around gap-1 sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm px-2 py-2">
-      {NAV.map((item) => (
+      {items.map((item) => (
         <NavLink
           key={item.to}
           to={item.to}
           end={item.end}
           className={({ isActive }) =>
             cn(
-              "flex flex-1 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[11px] font-mono",
-              isActive ? "bg-muted text-gold" : "text-comment"
+              "flex flex-1 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[11px]",
+              isMono ? "font-mono" : "font-sans",
+              isActive ? "bg-muted text-emphasis" : "text-comment"
             )
           }
         >

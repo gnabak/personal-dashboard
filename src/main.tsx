@@ -5,24 +5,26 @@ import App from "./App";
 import "leaflet/dist/leaflet.css";
 import "./index.css";
 import { Toaster } from "sonner";
+import { ThemeProvider } from "./themes/ThemeProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <BrowserRouter>
-      <App />
-      <Toaster
-        theme="dark"
-        position="bottom-right"
-        toastOptions={{
-          style: {
-            background: "rgb(25, 25, 35)",
-            border: "1px solid rgb(50, 50, 60)",
-            color: "rgb(225, 218, 200)",
-            fontFamily: "JetBrains Mono, monospace",
-            fontSize: "13px",
-          },
-        }}
-      />
-    </BrowserRouter>
+    <ThemeProvider>
+      <BrowserRouter>
+        <App />
+        <Toaster
+          position="bottom-right"
+          toastOptions={{
+            style: {
+              background: "rgb(var(--color-muted))",
+              border: "1px solid rgb(var(--color-border))",
+              color: "rgb(var(--color-foreground))",
+              fontFamily: "var(--font-mono)",
+              fontSize: "13px",
+            },
+          }}
+        />
+      </BrowserRouter>
+    </ThemeProvider>
   </React.StrictMode>
 );

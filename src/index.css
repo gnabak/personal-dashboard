@@ -2,18 +2,35 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Summer terminal palette — adapted from gnabak.github.io */
+/*
+ * Default (terminal) tokens — overridden at runtime by ThemeProvider.
+ * They are written here so the very first paint has a sensible value
+ * before React mounts.
+ */
 :root {
-  --color-background: 15 15 22;       /* warm navy */
-  --color-foreground: 225 218 200;    /* warm cream */
-  --color-muted: 25 25 35;            /* deep twilight */
-  --color-border: 50 50 60;           /* dusky edge */
-  --color-green: 85 220 120;          /* meadow green — links / cursor */
-  --color-orange: 255 165 55;         /* sunset amber — tags / strong */
-  --color-sky: 95 195 245;            /* summer sky — metadata / planned */
-  --color-gold: 240 195 75;           /* golden hour — headings */
-  --color-red: 255 110 100;           /* coral hibiscus — destructive */
-  --color-comment: 120 155 100;       /* sage grass — muted text */
+  --color-background: 15 15 22;
+  --color-foreground: 225 218 200;
+  --color-muted: 25 25 35;
+  --color-border: 50 50 60;
+  --color-primary: 85 220 120;
+  --color-warm: 255 165 55;
+  --color-cool: 95 195 245;
+  --color-emphasis: 240 195 75;
+  --color-danger: 255 110 100;
+  --color-subtle: 120 155 100;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-card: 0.5rem;
+  --card-bg: transparent;
+  --card-border-color: rgb(var(--color-border));
+  --card-shadow: none;
+  --card-backdrop: none;
+
+  --heading-weight: 700;
+  --heading-tracking: -0.01em;
 }
 
 @layer base {
@@ -33,38 +50,50 @@
 
   body {
     @apply bg-background text-foreground;
-    font-family: "Inter", ui-sans-serif, system-ui, sans-serif;
+    font-family: var(--font-sans);
     font-feature-settings: "cv11", "ss01";
-    /* Subtle scanline texture */
-    background-image: repeating-linear-gradient(
-      0deg,
-      rgb(var(--color-foreground) / 0.015) 0px,
-      rgb(var(--color-foreground) / 0.015) 1px,
-      transparent 1px,
-      transparent 3px
-    );
-    background-size: 100% 3px;
-    background-attachment: fixed;
   }
 
   ::selection {
-    background-color: rgb(var(--color-gold) / 0.25);
+    background-color: rgb(var(--color-emphasis) / 0.25);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: var(--heading-weight);
+    letter-spacing: var(--heading-tracking);
   }
 }
 
 @layer components {
-  /* Bordered terminal card */
+  /* Bordered theme card. Background, border color, shadow and blur all
+     come from theme-driven CSS variables. */
   .glass {
-    @apply rounded-lg border border-border bg-transparent;
+    border-radius: var(--radius-card);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border-color);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
   }
   .glass-strong {
-    @apply rounded-lg border border-border bg-muted;
+    border-radius: var(--radius-card);
+    background: rgb(var(--color-muted) / 0.85);
+    border: 1px solid var(--card-border-color);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
   }
   .glass-hover {
-    @apply transition-colors hover:bg-muted;
+    @apply transition-colors;
+  }
+  .glass-hover:hover {
+    background: rgb(var(--color-muted) / 0.6);
   }
 
-  /* Hover line-highlight (used by lists / cards) */
   .line-highlight {
     transition: background-color 0.15s ease;
     border-radius: 0.375rem;
@@ -73,26 +102,10 @@
     background-color: rgb(var(--color-muted));
   }
 
-  /* Prompt prefix used in headings: $ <cursor> */
-  .prompt::before {
-    content: "$";
-    color: rgb(var(--color-comment));
-    margin-right: 0.5rem;
-    font-family: "JetBrains Mono", ui-monospace, monospace;
-  }
-
-  .cursor-blink::after {
-    content: "_";
-    margin-left: 0.15rem;
-    color: rgb(var(--color-green));
-    animation: blink 1s step-end infinite;
-    font-weight: 400;
-  }
-
   .ring-accent {
     box-shadow:
-      0 0 0 1px rgb(var(--color-green) / 0.4),
-      0 0 18px rgb(var(--color-green) / 0.15);
+      0 0 0 1px rgb(var(--color-primary) / 0.4),
+      0 0 18px rgb(var(--color-primary) / 0.15);
   }
 }
 
@@ -111,8 +124,24 @@
   }
 }
 
-/* CRT vignette — only over content (not modals or toasts) */
-body::after {
+/* ─────────────────────────────────────────────────────────────────────
+ * Per-theme decoration. Scoped by data-theme so swapping the theme also
+ * swaps the body background texture and any whole-page overlays.
+ * ───────────────────────────────────────────────────────────────────── */
+
+/* Terminal — scanlines + CRT vignette */
+[data-theme="terminal"] body {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgb(var(--color-foreground) / 0.015) 0px,
+    rgb(var(--color-foreground) / 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-size: 100% 3px;
+  background-attachment: fixed;
+}
+[data-theme="terminal"] body::after {
   content: "";
   position: fixed;
   inset: 0;
@@ -125,20 +154,63 @@ body::after {
   );
 }
 
-/* Leaflet adjustments for terminal palette */
+/* Aurora — soft system-blue gradient wash */
+[data-theme="aurora"] body {
+  background-image:
+    radial-gradient(900px 500px at 0% -10%, rgb(0 122 255 / 0.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 0%, rgb(255 149 0 / 0.05), transparent 55%),
+    radial-gradient(1100px 700px at 50% 130%, rgb(88 86 214 / 0.05), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Meadow — paper grain + subtle warm vignette */
+[data-theme="meadow"] body {
+  background-image:
+    radial-gradient(rgba(120, 90, 50, 0.06) 1px, transparent 1px),
+    radial-gradient(900px 500px at 50% 110%, rgba(95, 145, 70, 0.05), transparent 60%);
+  background-size:
+    16px 16px,
+    100% 100%;
+  background-attachment: fixed;
+}
+[data-theme="meadow"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 65%,
+    rgba(120, 90, 50, 0.06) 100%
+  );
+}
+
+/* Quartz — faint grid */
+[data-theme="quartz"] body {
+  background-image:
+    linear-gradient(rgb(var(--color-border) / 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-border) / 0.4) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+ * Leaflet — pick up theme tokens for popups, controls, attribution.
+ * ───────────────────────────────────────────────────────────────────── */
 .leaflet-container {
   background: rgb(var(--color-background));
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-sans);
 }
 .leaflet-control-attribution {
   background: rgb(var(--color-muted) / 0.85) !important;
-  color: rgb(var(--color-comment)) !important;
+  color: rgb(var(--color-subtle)) !important;
   border-top: 1px solid rgb(var(--color-border));
-  font-family: "JetBrains Mono", monospace;
+  font-family: var(--font-mono);
   font-size: 10px !important;
 }
 .leaflet-control-attribution a {
-  color: rgb(var(--color-green)) !important;
+  color: rgb(var(--color-primary)) !important;
 }
 .leaflet-control-zoom a {
   background: rgb(var(--color-muted)) !important;
@@ -147,35 +219,42 @@ body::after {
 }
 .leaflet-control-zoom a:hover {
   background: rgb(var(--color-border)) !important;
-  color: rgb(var(--color-gold)) !important;
+  color: rgb(var(--color-emphasis)) !important;
 }
 .leaflet-popup-content-wrapper,
 .leaflet-popup-tip {
   background: rgb(var(--color-muted));
   color: rgb(var(--color-foreground));
   border: 1px solid rgb(var(--color-border));
-  border-radius: 6px;
-  font-family: "Inter", sans-serif;
+  border-radius: var(--radius-card);
+  font-family: var(--font-sans);
 }
 .leaflet-popup-content {
   margin: 10px 12px;
 }
 .leaflet-popup-close-button {
-  color: rgb(var(--color-comment)) !important;
+  color: rgb(var(--color-subtle)) !important;
 }
 .pd-pin {
   width: 14px;
   height: 14px;
-  border-radius: 2px;
   border: 1px solid rgb(var(--color-background));
   box-shadow: 0 0 0 1px rgb(0 0 0 / 0.6);
 }
+[data-theme="terminal"] .pd-pin,
+[data-theme="quartz"] .pd-pin {
+  border-radius: 2px;
+}
+[data-theme="aurora"] .pd-pin,
+[data-theme="meadow"] .pd-pin {
+  border-radius: 999px;
+}
 .pd-pin.wishlist {
-  background: rgb(var(--color-orange));
+  background: rgb(var(--color-warm));
 }
 .pd-pin.planned {
-  background: rgb(var(--color-sky));
+  background: rgb(var(--color-cool));
 }
 .pd-pin.visited {
-  background: rgb(var(--color-green));
+  background: rgb(var(--color-primary));
 }

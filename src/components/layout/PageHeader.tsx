@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { useTheme } from "@/themes/context";
 
 interface PageHeaderProps {
   eyebrow?: string;
@@ -7,7 +8,6 @@ interface PageHeaderProps {
   description?: string;
   actions?: React.ReactNode;
   className?: string;
-  command?: string;
 }
 
 export function PageHeader({
@@ -16,8 +16,11 @@ export function PageHeader({
   description,
   actions,
   className,
-  command,
 }: PageHeaderProps) {
+  const theme = useTheme();
+  const showPrompt = !!theme.voice.promptPrefix;
+  const showCommentMarker = theme.id === "terminal";
+  const isMono = theme.id === "terminal";
   return (
     <div
       className={cn(
@@ -27,17 +30,34 @@ export function PageHeader({
     >
       <div className="space-y-2">
         {eyebrow && (
-          <div className="font-mono text-xs text-comment">
-            <span className="text-comment/70">$</span> {eyebrow}
+          <div
+            className={cn(
+              "text-xs text-comment",
+              isMono ? "font-mono" : "font-sans tracking-wide uppercase"
+            )}
+          >
+            {showPrompt && <span className="text-comment/70 mr-1.5">$</span>}
+            {eyebrow}
           </div>
         )}
-        <h1 className="font-display text-2xl sm:text-3xl font-bold leading-tight tracking-tight text-gold">
-          {command && <span className="text-comment mr-2">$</span>}
+        <h1
+          className={cn(
+            "font-display text-2xl sm:text-3xl leading-tight text-emphasis"
+          )}
+        >
           {title}
         </h1>
         {description && (
-          <p className="text-sm font-mono text-comment max-w-2xl">
-            <span className="text-comment/60">{">"}</span> {description}
+          <p
+            className={cn(
+              "text-sm text-comment max-w-2xl",
+              isMono ? "font-mono" : "font-sans"
+            )}
+          >
+            {showCommentMarker && (
+              <span className="text-comment/60 mr-1">{">"}</span>
+            )}
+            {description}
           </p>
         )}
       </div>

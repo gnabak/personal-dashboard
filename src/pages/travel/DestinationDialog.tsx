@@ -16,6 +16,7 @@ import type { DestinationStatus } from "@/types/travel";
 import { cn } from "@/lib/utils";
 import { Trash2 } from "lucide-react";
 import { toast } from "sonner";
+import { useTheme } from "@/themes/context";
 
 interface DestinationDialogProps {
   open: boolean;
@@ -25,11 +26,11 @@ interface DestinationDialogProps {
   defaultTripId?: string | null;
 }
 
-const STATUSES: { value: DestinationStatus; label: string; color: string }[] = [
-  { value: "wishlist", label: "wishlist", color: "#ffa537" },
-  { value: "planned", label: "planned", color: "#5fc3f5" },
-  { value: "visited", label: "visited", color: "#55dc78" },
-];
+const STATUS_COLORS: Record<DestinationStatus, string> = {
+  wishlist: "rgb(var(--color-warm))",
+  planned: "rgb(var(--color-cool))",
+  visited: "rgb(var(--color-primary))",
+};
 
 export function DestinationDialog({
   open,
@@ -44,6 +45,8 @@ export function DestinationDialog({
   const updateDestination = useTravelStore((s) => s.updateDestination);
   const deleteDestination = useTravelStore((s) => s.deleteDestination);
   const attach = useTravelStore((s) => s.attachDestinationToTrip);
+  const theme = useTheme();
+  const statusLabels = theme.copy.travel.statusLabels;
 
   const editing = editingId
     ? destinations.find((d) => d.id === editingId) ?? null
@@ -144,25 +147,27 @@ export function DestinationDialog({
           <div className="space-y-2">
             <Label>Status</Label>
             <div className="flex gap-2">
-              {STATUSES.map((s) => (
-                <button
-                  key={s.value}
-                  type="button"
-                  onClick={() => setStatus(s.value)}
-                  className={cn(
-                    "flex-1 flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors",
-                    status === s.value
-                      ? "border-gold bg-muted"
-                      : "border-border bg-muted/40 hover:bg-muted/60"
-                  )}
-                >
-                  <span
-                    className="h-2.5 w-2.5 rounded-full"
-                    style={{ background: s.color }}
-                  />
-                  {s.label}
-                </button>
-              ))}
+              {(["wishlist", "planned", "visited"] as DestinationStatus[]).map(
+                (value) => (
+                  <button
+                    key={value}
+                    type="button"
+                    onClick={() => setStatus(value)}
+                    className={cn(
+                      "flex-1 flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors",
+                      status === value
+                        ? "border-emphasis bg-muted"
+                        : "border-border bg-muted/40 hover:bg-muted/60"
+                    )}
+                  >
+                    <span
+                      className="h-2.5 w-2.5 rounded-full"
+                      style={{ background: STATUS_COLORS[value] }}
+                    />
+                    {statusLabels[value]}
+                  </button>
+                )
+              )}
             </div>
           </div>
 
