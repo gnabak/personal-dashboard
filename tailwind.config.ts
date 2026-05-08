@@ -15,13 +15,13 @@ export default {
         foreground: "rgb(var(--color-foreground) / <alpha-value>)",
         muted: {
           DEFAULT: "rgb(var(--color-muted) / <alpha-value>)",
-          foreground: "rgb(var(--color-comment) / <alpha-value>)",
+          foreground: "rgb(var(--color-subtle) / <alpha-value>)",
         },
         border: "rgb(var(--color-border) / <alpha-value>)",
         input: "rgb(var(--color-border) / <alpha-value>)",
-        ring: "rgb(var(--color-green) / <alpha-value>)",
+        ring: "rgb(var(--color-primary) / <alpha-value>)",
         primary: {
-          DEFAULT: "rgb(var(--color-green) / <alpha-value>)",
+          DEFAULT: "rgb(var(--color-primary) / <alpha-value>)",
           foreground: "rgb(var(--color-background) / <alpha-value>)",
         },
         secondary: {
@@ -37,31 +37,38 @@ export default {
           foreground: "rgb(var(--color-foreground) / <alpha-value>)",
         },
         destructive: {
-          DEFAULT: "rgb(var(--color-red) / <alpha-value>)",
+          DEFAULT: "rgb(var(--color-danger) / <alpha-value>)",
           foreground: "rgb(var(--color-background) / <alpha-value>)",
         },
-        green: "rgb(var(--color-green) / <alpha-value>)",
-        orange: "rgb(var(--color-orange) / <alpha-value>)",
-        sky: "rgb(var(--color-sky) / <alpha-value>)",
-        gold: "rgb(var(--color-gold) / <alpha-value>)",
-        red: "rgb(var(--color-red) / <alpha-value>)",
-        comment: "rgb(var(--color-comment) / <alpha-value>)",
+        // Semantic accents — exact values come from active theme
+        warm: "rgb(var(--color-warm) / <alpha-value>)",
+        cool: "rgb(var(--color-cool) / <alpha-value>)",
+        emphasis: "rgb(var(--color-emphasis) / <alpha-value>)",
+        danger: "rgb(var(--color-danger) / <alpha-value>)",
+        subtle: "rgb(var(--color-subtle) / <alpha-value>)",
+        // Backwards-compatible legacy names mapped to semantic slots
+        green: "rgb(var(--color-primary) / <alpha-value>)",
+        orange: "rgb(var(--color-warm) / <alpha-value>)",
+        sky: "rgb(var(--color-cool) / <alpha-value>)",
+        gold: "rgb(var(--color-emphasis) / <alpha-value>)",
+        red: "rgb(var(--color-danger) / <alpha-value>)",
+        comment: "rgb(var(--color-subtle) / <alpha-value>)",
       },
       borderRadius: {
-        lg: "0.5rem",
-        md: "0.375rem",
-        sm: "0.25rem",
+        lg: "var(--radius-card, 0.5rem)",
+        md: "calc(var(--radius-card, 0.5rem) * 0.75)",
+        sm: "calc(var(--radius-card, 0.5rem) * 0.5)",
       },
       fontFamily: {
-        sans: ["Inter", "ui-sans-serif", "system-ui", "sans-serif"],
+        sans: ["var(--font-sans)", "ui-sans-serif", "system-ui", "sans-serif"],
         mono: [
-          "JetBrains Mono",
+          "var(--font-mono)",
           "ui-monospace",
           "SFMono-Regular",
           "Menlo",
           "monospace",
         ],
-        display: ["JetBrains Mono", "ui-monospace", "monospace"],
+        display: ["var(--font-display)", "ui-monospace", "monospace"],
       },
       keyframes: {
         blink: {

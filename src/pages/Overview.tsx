@@ -17,8 +17,10 @@ import {
   Upload,
 } from "lucide-react";
 import { format } from "date-fns";
-import { formatMinutes, formatRelativeDays } from "@/lib/utils";
+import { cn, formatMinutes, formatRelativeDays } from "@/lib/utils";
 import { toast } from "sonner";
+import { useTheme } from "@/themes/context";
+import type { Theme } from "@/themes";
 
 interface ActivityItem {
   id: string;
@@ -33,14 +35,17 @@ export function Overview() {
   const hobbies = useHobbiesStore((s) => s.hobbies);
   const trips = useTravelStore((s) => s.trips);
   const destinations = useTravelStore((s) => s.destinations);
+  const theme = useTheme();
+  const c = theme.copy.overview;
+  const isMono = theme.id === "terminal";
 
   const greeting = useMemo(() => {
     const h = new Date().getHours();
-    if (h < 5) return "Burning the midnight oil";
-    if (h < 12) return "Good morning";
-    if (h < 18) return "Good afternoon";
-    return "Good evening";
-  }, []);
+    if (h < 5) return theme.copy.greeting.late;
+    if (h < 12) return theme.copy.greeting.morning;
+    if (h < 18) return theme.copy.greeting.afternoon;
+    return theme.copy.greeting.evening;
+  }, [theme.copy.greeting]);
 
   const stats = useMemo(() => {
     const milestonesDoneThisMonth = hobbies
@@ -50,7 +55,8 @@ export function Overview() {
         const d = new Date(m.doneAt);
         const now = new Date();
         return (
-          d.getMonth() === now.getMonth() && d.getFullYear() === now.getFullYear()
+          d.getMonth() === now.getMonth() &&
+          d.getFullYear() === now.getFullYear()
         );
       }).length;
 
@@ -113,9 +119,7 @@ export function Overview() {
         detail: d.status,
       });
     }
-    return items
-      .sort((a, b) => b.date.localeCompare(a.date))
-      .slice(0, 12);
+    return items.sort((a, b) => b.date.localeCompare(a.date)).slice(0, 12);
   }, [hobbies, destinations]);
 
   const fileInput = useRef<HTMLInputElement>(null);
@@ -148,11 +152,7 @@ export function Overview() {
     file.text().then((text) => {
       try {
         const parsed = JSON.parse(text);
-        if (
-          !confirm(
-            "Importing will replace your current data. Continue?"
-          )
-        )
+        if (!confirm("Importing will replace your current data. Continue?"))
           return;
         useHobbiesStore.setState({ hobbies: parsed.hobbies ?? [] });
         useTravelStore.setState({
@@ -168,23 +168,26 @@ export function Overview() {
     });
   }
 
+  const dateStr = format(new Date(), "EEEE, MMM d");
+  const timeStr = format(new Date(), "HH:mm");
+
   return (
     <div className="p-4 sm:p-8 max-w-6xl mx-auto space-y-8 animate-fade-in">
       <PageHeader
-        eyebrow={`last login: ${format(new Date(), "EEEE, MMM d HH:mm").toLowerCase()}`}
-        title={`${greeting.toLowerCase()}.`}
-        description="a bird's-eye view of what you're chasing right now."
+        eyebrow={c.eyebrow(dateStr, timeStr)}
+        title={greeting}
+        description={c.description}
         actions={
           <div className="flex items-center gap-2">
             <Button variant="secondary" size="sm" onClick={handleExport}>
-              <Download className="h-3.5 w-3.5" /> export
+              <Download className="h-3.5 w-3.5" /> {c.actions.export}
             </Button>
             <Button
               variant="secondary"
               size="sm"
               onClick={() => fileInput.current?.click()}
             >
-              <Upload className="h-3.5 w-3.5" /> import
+              <Upload className="h-3.5 w-3.5" /> {c.actions.import}
             </Button>
             <input
               ref={fileInput}
@@ -200,31 +203,31 @@ export function Overview() {
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <SummaryCard
           icon={<Sparkles className="h-4 w-4" />}
-          label="active hobbies"
+          label={c.cards.hobbies}
           value={stats.hobbies}
-          accent="#55dc78"
+          accentVar="--color-primary"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Check className="h-4 w-4" />}
-          label="milestones this month"
+          label={c.cards.milestones}
           value={stats.milestonesDoneThisMonth}
-          accent="#5fc3f5"
+          accentVar="--color-cool"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Clock className="h-4 w-4" />}
-          label="logged this week"
+          label={c.cards.logged}
           value={formatMinutes(stats.minutesThisWeek)}
-          accent="#ffa537"
+          accentVar="--color-warm"
           to="/hobbies"
         />
         <SummaryCard
           icon={<Map className="h-4 w-4" />}
-          label="trips planned"
+          label={c.cards.trips}
           value={stats.trips}
           subValue={`${stats.visited} visited · ${stats.wishlist} wishlist`}
-          accent="#f0c34b"
+          accentVar="--color-emphasis"
           to="/travel"
         />
       </div>
@@ -232,20 +235,23 @@ export function Overview() {
       <div className="grid gap-6 lg:grid-cols-3">
         <div className="lg:col-span-2 glass p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold text-gold">
-              <span className="text-comment mr-2">$</span>./hobbies-in-progress
-            </h2>
+            <SectionHeading theme={theme}>
+              {c.sections.hobbiesInProgress}
+            </SectionHeading>
             <Link
               to="/hobbies"
-              className="font-mono text-xs text-comment hover:text-green inline-flex items-center gap-1 transition-colors"
+              className={cn(
+                "text-xs text-comment hover:text-primary inline-flex items-center gap-1 transition-colors",
+                isMono ? "font-mono" : "font-sans"
+              )}
             >
-              cd ~/hobbies <ArrowRight className="h-3 w-3" />
+              {c.links.hobbies} <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
           {hobbies.length === 0 ? (
             <EmptyHint
-              text="// no hobbies yet."
-              cta="add one"
+              text={c.emptyHints.hobbies.text}
+              cta={c.emptyHints.hobbies.cta}
               to="/hobbies"
             />
           ) : (
@@ -260,7 +266,12 @@ export function Overview() {
                     className="rounded-md border border-border bg-muted/40 p-3"
                   >
                     <div className="flex items-center justify-between gap-3">
-                      <div className="font-mono text-sm text-foreground">
+                      <div
+                        className={cn(
+                          "text-sm",
+                          isMono ? "font-mono" : "font-sans font-medium"
+                        )}
+                      >
                         {h.name}
                       </div>
                       <div className="font-mono text-xs text-comment tabular-nums">
@@ -281,18 +292,25 @@ export function Overview() {
 
         <div className="glass p-6 space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="font-display text-lg font-bold text-gold">
-              <span className="text-comment mr-2">$</span>./travel-pulse
-            </h2>
+            <SectionHeading theme={theme}>
+              {c.sections.travelPulse}
+            </SectionHeading>
             <Link
               to="/travel"
-              className="font-mono text-xs text-comment hover:text-green inline-flex items-center gap-1 transition-colors"
+              className={cn(
+                "text-xs text-comment hover:text-primary inline-flex items-center gap-1 transition-colors",
+                isMono ? "font-mono" : "font-sans"
+              )}
             >
-              cd ~/travel <ArrowRight className="h-3 w-3" />
+              {c.links.travel} <ArrowRight className="h-3 w-3" />
             </Link>
           </div>
           {trips.length === 0 && destinations.length === 0 ? (
-            <EmptyHint text="// no trips or pins yet." cta="plan one" to="/travel" />
+            <EmptyHint
+              text={c.emptyHints.travel.text}
+              cta={c.emptyHints.travel.cta}
+              to="/travel"
+            />
           ) : (
             <ul className="space-y-2">
               {trips.slice(0, 4).map((t) => (
@@ -305,7 +323,12 @@ export function Overview() {
                       className="h-1.5 w-1.5 rounded-sm"
                       style={{ background: t.coverColor }}
                     />
-                    <div className="font-mono text-sm flex-1 truncate">
+                    <div
+                      className={cn(
+                        "text-sm flex-1 truncate",
+                        isMono ? "font-mono" : "font-sans"
+                      )}
+                    >
                       {t.title}
                     </div>
                     <span className="font-mono text-[11px] text-comment">
@@ -315,8 +338,8 @@ export function Overview() {
                 </li>
               ))}
               {trips.length === 0 && destinations.length > 0 && (
-                <li className="font-mono text-xs text-comment">
-                  // {destinations.length} destinations pinned, no trips yet
+                <li className="text-xs text-comment">
+                  {destinations.length} destinations pinned, no trips yet.
                 </li>
               )}
             </ul>
@@ -325,14 +348,15 @@ export function Overview() {
       </div>
 
       <div className="glass p-6 space-y-4">
-        <h2 className="font-display text-lg font-bold text-gold">
-          <span className="text-comment mr-2">$</span>tail -n 12 activity.log
-        </h2>
+        <SectionHeading theme={theme}>{c.sections.activity}</SectionHeading>
         {activity.length === 0 ? (
-          <p className="font-mono text-sm text-comment">
-            <span className="text-comment/60">{"//"}</span> nothing here yet.
-            complete a milestone, log a session, or pin a destination — it'll
-            show up here.
+          <p
+            className={cn(
+              "text-sm text-comment",
+              isMono ? "font-mono" : "font-sans"
+            )}
+          >
+            {c.emptyHints.activity}
           </p>
         ) : (
           <ul className="space-y-1.5">
@@ -343,7 +367,14 @@ export function Overview() {
               >
                 <ActivityIcon kind={a.kind} color={a.color} />
                 <div className="flex-1 min-w-0">
-                  <div className="font-mono text-sm">{a.title}</div>
+                  <div
+                    className={cn(
+                      "text-sm",
+                      isMono ? "font-mono" : "font-sans"
+                    )}
+                  >
+                    {a.title}
+                  </div>
                   {a.detail && (
                     <div className="font-mono text-xs text-comment truncate">
                       {a.detail}
@@ -362,21 +393,48 @@ export function Overview() {
   );
 }
 
+function SectionHeading({
+  theme,
+  children,
+}: {
+  theme: Theme;
+  children: React.ReactNode;
+}) {
+  const isMono = theme.id === "terminal";
+  return (
+    <h2
+      className={cn(
+        "font-display text-lg text-emphasis",
+        isMono && "font-bold"
+      )}
+    >
+      {theme.voice.sectionPrefix && (
+        <span className="text-comment mr-2">{theme.voice.sectionPrefix}</span>
+      )}
+      {children}
+    </h2>
+  );
+}
+
 function SummaryCard({
   icon,
   label,
   value,
   subValue,
-  accent,
+  accentVar,
   to,
 }: {
   icon: React.ReactNode;
   label: string;
   value: number | string;
   subValue?: string;
-  accent: string;
+  /** CSS variable name to read the accent from (e.g. "--color-primary") */
+  accentVar: string;
   to: string;
 }) {
+  const theme = useTheme();
+  const isMono = theme.id === "terminal";
+  const accent = `rgb(var(${accentVar}))`;
   return (
     <Link
       to={to}
@@ -386,19 +444,24 @@ function SummaryCard({
         <div
           className="h-7 w-7 rounded-sm grid place-items-center border"
           style={{
-            background: `${accent}14`,
-            borderColor: `${accent}50`,
+            background: `rgb(var(${accentVar}) / 0.12)`,
+            borderColor: `rgb(var(${accentVar}) / 0.45)`,
             color: accent,
           }}
         >
           {icon}
         </div>
-        <ArrowRight className="h-3.5 w-3.5 text-comment/60 group-hover:text-green transition-colors" />
+        <ArrowRight className="h-3.5 w-3.5 text-comment/60 group-hover:text-primary transition-colors" />
       </div>
-      <div className="mt-3 font-mono text-[11px] uppercase tracking-[0.18em] text-comment">
+      <div
+        className={cn(
+          "mt-3 text-[11px] uppercase tracking-[0.18em] text-comment",
+          isMono ? "font-mono" : "font-sans"
+        )}
+      >
         {label}
       </div>
-      <div className="font-display text-2xl font-bold mt-1 text-foreground tabular-nums">
+      <div className="font-display text-2xl mt-1 text-foreground tabular-nums">
         {value}
       </div>
       {subValue && (
@@ -415,7 +478,7 @@ function ActivityIcon({
   kind: ActivityItem["kind"];
   color?: string;
 }) {
-  const c = color ?? "#789b64";
+  const c = color ?? `rgb(var(--color-subtle))`;
   const Icon =
     kind === "milestone" ? Check : kind === "session" ? Clock : MapPin;
   return (
@@ -441,12 +504,19 @@ function EmptyHint({
   cta: string;
   to: string;
 }) {
+  const theme = useTheme();
+  const isMono = theme.id === "terminal";
   return (
-    <div className="rounded-md border border-dashed border-border p-6 text-center font-mono text-sm text-comment space-y-2">
+    <div
+      className={cn(
+        "rounded-md border border-dashed border-border p-6 text-center text-sm text-comment space-y-2",
+        isMono ? "font-mono" : "font-sans"
+      )}
+    >
       <div>{text}</div>
       <Link
         to={to}
-        className="inline-flex items-center gap-1 text-green hover:underline underline-offset-4 decoration-green/40 hover:decoration-green"
+        className="inline-flex items-center gap-1 text-primary hover:underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
       >
         {cta} <ArrowRight className="h-3 w-3" />
       </Link>
