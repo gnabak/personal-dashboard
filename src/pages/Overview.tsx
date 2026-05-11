@@ -2,6 +2,8 @@ import { useMemo, useRef } from "react";
 import { Link } from "react-router-dom";
 import { useHobbiesStore } from "@/store/hobbies";
 import { useTravelStore } from "@/store/travel";
+import { useFinanceStore, computeGoalCurrent } from "@/store/finance";
+import { fmtCurrencyCompact } from "@/lib/finance";
 import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/layout/PageHeader";
 import { Progress } from "@/components/ui/Progress";
@@ -15,6 +17,7 @@ import {
   MapPin,
   Sparkles,
   Upload,
+  Wallet,
 } from "lucide-react";
 import { format } from "date-fns";
 import { cn, formatMinutes, formatRelativeDays } from "@/lib/utils";
@@ -35,6 +38,10 @@ export function Overview() {
   const hobbies = useHobbiesStore((s) => s.hobbies);
   const trips = useTravelStore((s) => s.trips);
   const destinations = useTravelStore((s) => s.destinations);
+  const financeGoals = useFinanceStore((s) => s.goals);
+  const holdings = useFinanceStore((s) => s.holdings);
+  const finTransactions = useFinanceStore((s) => s.transactions);
+  const finAccounts = useFinanceStore((s) => s.accounts);
   const theme = useTheme();
   const c = theme.copy.overview;
   const isMono = theme.id === "terminal";
@@ -346,6 +353,65 @@ export function Overview() {
           )}
         </div>
       </div>
+
+      {financeGoals.length > 0 && (
+        <div className="glass p-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <SectionHeading theme={theme}>
+              {theme.copy.finance.tabs.goals}
+            </SectionHeading>
+            <Link
+              to="/finance"
+              className={cn(
+                "text-xs text-comment hover:text-primary inline-flex items-center gap-1 transition-colors",
+                isMono ? "font-mono" : "font-sans"
+              )}
+            >
+              <Wallet className="h-3 w-3" /> {theme.copy.nav.finance}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {financeGoals.slice(0, 4).map((g) => {
+              const cur = computeGoalCurrent(g, {
+                holdings,
+                transactions: finTransactions,
+                accounts: finAccounts,
+              });
+              const pct =
+                g.targetAmount > 0
+                  ? Math.min(100, Math.round((cur / g.targetAmount) * 100))
+                  : 0;
+              return (
+                <li
+                  key={g.id}
+                  className="rounded-md border border-border bg-muted/40 p-3 space-y-1.5"
+                >
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span
+                      className={cn(
+                        "text-sm font-medium truncate",
+                        isMono ? "font-mono" : "font-sans"
+                      )}
+                    >
+                      {g.title}
+                    </span>
+                    <span className="font-mono text-[11px] text-comment tabular-nums shrink-0">
+                      {fmtCurrencyCompact(cur, g.currency)} /{" "}
+                      {fmtCurrencyCompact(g.targetAmount, g.currency)}
+                    </span>
+                  </div>
+                  <Progress
+                    value={pct}
+                    indicatorColor={g.color}
+                    className="h-1"
+                  />
+                </li>
+              );
+            })}
+          </ul>
+        </div>
+      )}
 
       <div className="glass p-6 space-y-4">
         <SectionHeading theme={theme}>{c.sections.activity}</SectionHeading>

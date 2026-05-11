@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Map, Sparkles } from "lucide-react";
+import { LayoutDashboard, Map, Sparkles, Wallet } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/themes/context";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -8,6 +8,7 @@ export function Sidebar() {
   const theme = useTheme();
   const items = [
     { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
+    { to: "/finance", label: theme.copy.nav.finance, icon: Wallet },
     { to: "/travel", label: theme.copy.nav.travel, icon: Map },
     { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
   ];
@@ -84,6 +85,7 @@ export function MobileBar() {
   const isMono = theme.id === "terminal";
   const items = [
     { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
+    { to: "/finance", label: theme.copy.nav.finance, icon: Wallet },
     { to: "/travel", label: theme.copy.nav.travel, icon: Map },
     { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
   ];

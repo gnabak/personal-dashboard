@@ -51,6 +51,7 @@ export const meadowTheme: Theme = {
       overview: "Home",
       travel: "Wanderings",
       hobbies: "Hobbies",
+      finance: "Coins",
     },
     greeting: {
       morning: "Good morning, friend.",
@@ -106,6 +107,39 @@ export const meadowTheme: Theme = {
         description:
           "A hobby is a quiet promise to yourself. Plant one and watch it sprout.",
         cta: "Plant your first pursuit",
+      },
+    },
+    finance: {
+      eyebrow: "Coins",
+      title: "Coin purse & savings",
+      description:
+        "Note what comes in, what goes out, and what you're saving toward. Import a list if you've got one.",
+      tabs: {
+        overview: "Overview",
+        transactions: "Coins",
+        investments: "Stockpile",
+        goals: "Wishes",
+      },
+      actions: {
+        addAccount: "New purse",
+        addTransaction: "Note a coin",
+        importCsv: "Import list",
+        addHolding: "Add to stockpile",
+        addGoal: "Make a wish",
+        refreshPrices: "Refresh prices",
+      },
+      fields: {
+        netThisMonth: "Coins this month",
+        spendingThisMonth: "Spent this month",
+        incomeThisMonth: "Earned this month",
+        portfolioValue: "Stockpile value",
+        gainLoss: "Bloom / wilt",
+      },
+      emptyStates: {
+        accounts: { text: "No purses yet.", cta: "Open one" },
+        transactions: "No coins logged in this view.",
+        holdings: "Stockpile is bare.",
+        goals: "No wishes yet.",
       },
     },
     footer: [
