@@ -40,7 +40,13 @@ export const terminalTheme: Theme = {
   copy: {
     brand: "~/dashboard",
     tagline: "// data persists in this browser",
-    nav: { overview: "overview", travel: "travel", hobbies: "hobbies", finance: "finance" },
+    nav: {
+      overview: "overview",
+      travel: "travel",
+      hobbies: "hobbies",
+      finance: "finance",
+      meals: "meals",
+    },
     greeting: {
       morning: "good morning.",
       afternoon: "good afternoon.",
@@ -124,6 +130,29 @@ export const terminalTheme: Theme = {
         transactions: "// no transactions in this view.",
         holdings: "// no holdings tracked yet.",
         goals: "// no finance goals yet.",
+      },
+    },
+    meals: {
+      eyebrow: "ls ~/meals",
+      title: "what you're eating this week",
+      description: "log recipes, plan the week, get a shopping list.",
+      tabs: { recipes: "recipes", plans: "plans", shopping: "shopping" },
+      actions: {
+        newRecipe: "new recipe",
+        newPlan: "new plan",
+        clearChecked: "uncheck all",
+        copyList: "copy list",
+      },
+      slots: {
+        breakfast: "breakfast",
+        lunch: "lunch",
+        dinner: "dinner",
+        snack: "snack",
+      },
+      empty: {
+        recipes: { text: "// no recipes yet.", cta: "write one" },
+        plans: { text: "// no plans yet.", cta: "draft a week" },
+        shopping: "// pick a plan to generate a shopping list.",
       },
     },
     footer: [

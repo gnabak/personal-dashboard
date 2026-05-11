@@ -4,6 +4,7 @@ import { Overview } from "@/pages/Overview";
 import { TravelPage } from "@/pages/travel/TravelPage";
 import { HobbiesPage } from "@/pages/hobbies/HobbiesPage";
 import { FinancePage } from "@/pages/finance/FinancePage";
+import { MealsPage } from "@/pages/meals/MealsPage";
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Route element={<AppShell />}>
         <Route path="/" element={<Overview />} />
         <Route path="/finance" element={<FinancePage />} />
+        <Route path="/meals" element={<MealsPage />} />
         <Route path="/travel" element={<TravelPage />} />
         <Route path="/hobbies" element={<HobbiesPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

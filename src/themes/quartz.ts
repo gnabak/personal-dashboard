@@ -50,6 +50,7 @@ export const quartzTheme: Theme = {
       travel: "Travel",
       hobbies: "Positions",
       finance: "Markets",
+      meals: "Provisions",
     },
     greeting: {
       morning: "Good morning.",
@@ -138,6 +139,30 @@ export const quartzTheme: Theme = {
         transactions: "No entries in this view.",
         holdings: "No open positions.",
         goals: "No active mandates.",
+      },
+    },
+    meals: {
+      eyebrow: "Provisions",
+      title: "Inventory & consumption",
+      description:
+        "Recipes catalogued, plan the week, shopping list aggregated.",
+      tabs: { recipes: "Catalogue", plans: "Schedule", shopping: "Manifest" },
+      actions: {
+        newRecipe: "New entry",
+        newPlan: "New schedule",
+        clearChecked: "Reset",
+        copyList: "Copy manifest",
+      },
+      slots: {
+        breakfast: "Morning",
+        lunch: "Midday",
+        dinner: "Evening",
+        snack: "Snack",
+      },
+      empty: {
+        recipes: { text: "Catalogue is empty.", cta: "Add an entry" },
+        plans: { text: "No active schedules.", cta: "Open a schedule" },
+        shopping: "Select a schedule to compile a manifest.",
       },
     },
     footer: [
