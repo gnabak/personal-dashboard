@@ -25,20 +25,17 @@ export interface Recipe {
   createdAt: string;
 }
 
-export type MealSlotKind = "breakfast" | "lunch" | "dinner" | "snack";
-
-export const MEAL_SLOTS: { value: MealSlotKind; label: string }[] = [
-  { value: "breakfast", label: "Breakfast" },
-  { value: "lunch", label: "Lunch" },
-  { value: "dinner", label: "Dinner" },
-  { value: "snack", label: "Snack" },
-];
-
+/**
+ * A meal slot identifies a position in the plan's day. The slot label
+ * (the user-defined name like "Breakfast" or "Afternoon snack") is
+ * stored directly so plans can define any sequence of slots.
+ */
 export interface MealSlot {
   id: string;
   /** ISO date yyyy-MM-dd for the specific day in the plan. */
   date: string;
-  kind: MealSlotKind;
+  /** User-defined slot label as it appears in `plan.slotLabels`. */
+  kind: string;
   recipeId: string;
   /** Number of portions actually planned (defaults to recipe.servings). */
   servings: number;
@@ -52,12 +49,24 @@ export interface MealPlan {
   kind: PlanKind;
   /** Start date — Monday for weekly, 1st of month for monthly. */
   startDate: string;
+  /**
+   * Ordered list of slot labels the plan uses (e.g. ["Breakfast",
+   * "Later breakfast", "Lunch", "Afternoon snack", "Dinner"]).
+   */
+  slotLabels: string[];
   notes?: string;
   slots: MealSlot[];
   /** Shopping items the user has ticked off (by aggregation key). */
   checkedKeys: string[];
   createdAt: string;
 }
+
+export const DEFAULT_SLOT_LABELS: string[] = [
+  "Breakfast",
+  "Lunch",
+  "Dinner",
+  "Snack",
+];
 
 export const RECIPE_COLORS = [
   "#55dc78",

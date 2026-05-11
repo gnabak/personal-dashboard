@@ -4,12 +4,11 @@ import { nanoid } from "nanoid";
 import type {
   MealPlan,
   MealSlot,
-  MealSlotKind,
   PlanKind,
   Recipe,
   RecipeIngredient,
 } from "@/types/meals";
-import { RECIPE_COLORS } from "@/types/meals";
+import { DEFAULT_SLOT_LABELS, RECIPE_COLORS } from "@/types/meals";
 
 interface MealsState {
   recipes: Recipe[];
@@ -26,16 +25,24 @@ interface MealsState {
 
   // Plans
   addPlan: (
-    data: Omit<MealPlan, "id" | "createdAt" | "slots" | "checkedKeys">
+    data: Omit<MealPlan, "id" | "createdAt" | "slots" | "checkedKeys"> & {
+      slotLabels?: string[];
+    }
   ) => string;
   updatePlan: (id: string, patch: Partial<MealPlan>) => void;
   deletePlan: (id: string) => void;
 
-  // Slots (assign / clear a recipe for a given day+slot)
+  // Per-plan slot label management
+  addSlotLabel: (planId: string, label: string) => void;
+  removeSlotLabel: (planId: string, label: string) => void;
+  renameSlotLabel: (planId: string, oldLabel: string, newLabel: string) => void;
+  moveSlotLabel: (planId: string, label: string, direction: -1 | 1) => void;
+
+  // Assign / clear a recipe for a given day+slot
   setSlot: (
     planId: string,
     date: string,
-    kind: MealSlotKind,
+    kind: string,
     recipeId: string | null,
     servings?: number
   ) => void;
@@ -86,7 +93,6 @@ export const useMealsStore = create<MealsState>()(
           recipes: s.recipes.map((r) => {
             if (r.id !== id) return r;
             const next: Recipe = { ...r, ...patch };
-            // Re-stamp ingredient ids defensively
             if (patch.ingredients) {
               next.ingredients = patch.ingredients.map((i) => ({
                 ...i,
@@ -100,7 +106,6 @@ export const useMealsStore = create<MealsState>()(
       deleteRecipe: (id) =>
         set((s) => ({
           recipes: s.recipes.filter((r) => r.id !== id),
-          // Drop slots that referenced this recipe
           plans: s.plans.map((p) => ({
             ...p,
             slots: p.slots.filter((sl) => sl.recipeId !== id),
@@ -109,6 +114,10 @@ export const useMealsStore = create<MealsState>()(
 
       addPlan: (data) => {
         const id = nanoid();
+        const slotLabels =
+          data.slotLabels && data.slotLabels.length > 0
+            ? [...data.slotLabels]
+            : [...DEFAULT_SLOT_LABELS];
         set((s) => ({
           plans: [
             {
@@ -116,6 +125,7 @@ export const useMealsStore = create<MealsState>()(
               title: data.title,
               kind: data.kind as PlanKind,
               startDate: data.startDate,
+              slotLabels,
               notes: data.notes,
               slots: [],
               checkedKeys: [],
@@ -134,6 +144,64 @@ export const useMealsStore = create<MealsState>()(
 
       deletePlan: (id) =>
         set((s) => ({ plans: s.plans.filter((p) => p.id !== id) })),
+
+      addSlotLabel: (planId, label) =>
+        set((s) => ({
+          plans: s.plans.map((p) => {
+            if (p.id !== planId) return p;
+            const trimmed = label.trim();
+            if (!trimmed) return p;
+            if (p.slotLabels.includes(trimmed)) return p;
+            return { ...p, slotLabels: [...p.slotLabels, trimmed] };
+          }),
+        })),
+
+      removeSlotLabel: (planId, label) =>
+        set((s) => ({
+          plans: s.plans.map((p) => {
+            if (p.id !== planId) return p;
+            return {
+              ...p,
+              slotLabels: p.slotLabels.filter((l) => l !== label),
+              // drop any slot assignments tied to that label
+              slots: p.slots.filter((sl) => sl.kind !== label),
+            };
+          }),
+        })),
+
+      renameSlotLabel: (planId, oldLabel, newLabel) =>
+        set((s) => ({
+          plans: s.plans.map((p) => {
+            if (p.id !== planId) return p;
+            const trimmed = newLabel.trim();
+            if (!trimmed) return p;
+            if (oldLabel === trimmed) return p;
+            if (p.slotLabels.includes(trimmed)) return p;
+            return {
+              ...p,
+              slotLabels: p.slotLabels.map((l) =>
+                l === oldLabel ? trimmed : l
+              ),
+              slots: p.slots.map((sl) =>
+                sl.kind === oldLabel ? { ...sl, kind: trimmed } : sl
+              ),
+            };
+          }),
+        })),
+
+      moveSlotLabel: (planId, label, direction) =>
+        set((s) => ({
+          plans: s.plans.map((p) => {
+            if (p.id !== planId) return p;
+            const idx = p.slotLabels.indexOf(label);
+            if (idx < 0) return p;
+            const next = [...p.slotLabels];
+            const target = idx + direction;
+            if (target < 0 || target >= next.length) return p;
+            [next[idx], next[target]] = [next[target], next[idx]];
+            return { ...p, slotLabels: next };
+          }),
+        })),
 
       setSlot: (planId, date, kind, recipeId, servings) =>
         set((s) => ({
@@ -178,7 +246,26 @@ export const useMealsStore = create<MealsState>()(
     {
       name: "pd.meals.v1",
       storage: createJSONStorage(() => localStorage),
-      version: 1,
+      version: 2,
+      migrate: (persistedState, version) => {
+        // v1 → v2: introduce per-plan slotLabels, capitalize old slot.kind
+        const state = persistedState as Partial<MealsState> | undefined;
+        if (!state || !Array.isArray(state.plans)) return state;
+        if (version >= 2) return state;
+        const cap = (s: string) =>
+          s ? s.charAt(0).toUpperCase() + s.slice(1) : s;
+        const plans = state.plans.map((p) => {
+          const anyP = p as MealPlan & { slotLabels?: string[] };
+          if (anyP.slotLabels && anyP.slotLabels.length > 0) return anyP;
+          const labels = [...DEFAULT_SLOT_LABELS];
+          const slots = (anyP.slots ?? []).map((sl) => ({
+            ...sl,
+            kind: cap(sl.kind),
+          }));
+          return { ...anyP, slotLabels: labels, slots };
+        });
+        return { ...state, plans };
+      },
     }
   )
 );

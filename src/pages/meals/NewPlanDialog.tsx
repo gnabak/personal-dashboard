@@ -11,6 +11,7 @@ import { Input, Textarea } from "@/components/ui/Input";
 import { Label } from "@/components/ui/Label";
 import { Button } from "@/components/ui/Button";
 import { useMealsStore, mondayOf, firstOfMonth } from "@/store/meals";
+import { useTheme } from "@/themes/context";
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { format } from "date-fns";
@@ -24,6 +25,7 @@ export function NewPlanDialog({
   onOpenChange: (o: boolean) => void;
 }) {
   const addPlan = useMealsStore((s) => s.addPlan);
+  const theme = useTheme();
   const [kind, setKind] = useState<PlanKind>("weekly");
   const [title, setTitle] = useState("");
   const [start, setStart] = useState(() => mondayOf(new Date()));
@@ -57,10 +59,12 @@ export function NewPlanDialog({
       (kind === "weekly"
         ? `Week of ${format(new Date(startDate), "MMM d")}`
         : format(new Date(startDate), "MMMM yyyy"));
+    const s = theme.copy.meals.slots;
     addPlan({
       title: finalTitle,
       kind,
       startDate,
+      slotLabels: [s.breakfast, s.lunch, s.dinner, s.snack],
       notes: notes.trim() || undefined,
     });
     toast.success("Plan created");
