@@ -26,11 +26,11 @@ export function HobbyCard({ hobby, onClick }: HobbyCardProps) {
   return (
     <button
       onClick={onClick}
-      className="group relative text-left glass glass-hover p-5 flex flex-col gap-4 transition-transform hover:-translate-y-0.5 hover:shadow-2xl"
+      className="group pd-hobby-card"
       style={{ ["--accent" as string]: accent }}
     >
       <div
-        className="absolute inset-x-0 -top-px h-px"
+        className="pd-hobby-card__edge"
         style={{
           background: `linear-gradient(90deg, transparent, ${accent}80, transparent)`,
         }}
@@ -38,7 +38,7 @@ export function HobbyCard({ hobby, onClick }: HobbyCardProps) {
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           <div
-            className="h-11 w-11 rounded-xl grid place-items-center border"
+            className="pd-hobby-card__icon"
             style={{
               background: `${accent}1a`,
               borderColor: `${accent}40`,

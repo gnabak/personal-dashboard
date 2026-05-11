@@ -1,0 +1,30 @@
+/*
+ * Default token values. ThemeProvider overrides these at runtime per-theme.
+ * They are written here so the very first paint has sensible values before
+ * React mounts and applies the active theme.
+ */
+:root {
+  --color-background: 15 15 22;
+  --color-foreground: 225 218 200;
+  --color-muted: 25 25 35;
+  --color-border: 50 50 60;
+  --color-primary: 85 220 120;
+  --color-warm: 255 165 55;
+  --color-cool: 95 195 245;
+  --color-emphasis: 240 195 75;
+  --color-danger: 255 110 100;
+  --color-subtle: 120 155 100;
+
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-display: "JetBrains Mono", ui-monospace, monospace;
+
+  --radius-card: 0.5rem;
+  --card-bg: transparent;
+  --card-border-color: rgb(var(--color-border));
+  --card-shadow: none;
+  --card-backdrop: none;
+
+  --heading-weight: 700;
+  --heading-tracking: -0.01em;
+}

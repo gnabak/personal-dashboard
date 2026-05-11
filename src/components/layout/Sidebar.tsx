@@ -4,25 +4,25 @@ import { cn } from "@/lib/utils";
 import { useTheme } from "@/themes/context";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
 
-export function Sidebar() {
-  const theme = useTheme();
-  const items = [
+function buildItems(theme: ReturnType<typeof useTheme>) {
+  return [
     { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
     { to: "/finance", label: theme.copy.nav.finance, icon: Wallet },
     { to: "/travel", label: theme.copy.nav.travel, icon: Map },
     { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
   ];
+}
+
+export function Sidebar() {
+  const theme = useTheme();
+  const items = buildItems(theme);
   const showPrompt = !!theme.voice.promptPrefix;
   const isMono = theme.id === "terminal";
+  const fontClass = isMono ? "font-mono" : "font-sans";
 
   return (
-    <aside className="hidden md:flex w-60 shrink-0 flex-col gap-6 border-r border-border bg-muted/40 p-5 relative z-10">
-      <div
-        className={cn(
-          "flex items-center gap-2",
-          isMono ? "font-mono" : "font-sans"
-        )}
-      >
+    <aside className="pd-sidebar">
+      <div className={cn("pd-sidebar__brand", fontClass)}>
         {showPrompt && <span className="text-comment">$</span>}
         <span className="font-bold text-emphasis">{theme.copy.brand}</span>
         {theme.voice.brandCursor && (
@@ -30,7 +30,7 @@ export function Sidebar() {
         )}
       </div>
 
-      <nav className="flex flex-col gap-0.5">
+      <nav className="pd-sidebar__nav">
         {items.map((item) => (
           <NavLink
             key={item.to}
@@ -38,11 +38,9 @@ export function Sidebar() {
             end={item.end}
             className={({ isActive }) =>
               cn(
-                "group flex items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors",
-                isMono ? "font-mono" : "font-sans",
-                isActive
-                  ? "bg-muted text-emphasis"
-                  : "text-comment hover:text-foreground hover:bg-muted/60"
+                "pd-sidebar__item",
+                fontClass,
+                isActive ? "pd-sidebar__item--active" : "pd-sidebar__item--inactive"
               )
             }
           >
@@ -50,7 +48,7 @@ export function Sidebar() {
               <>
                 <span
                   className={cn(
-                    "w-3 text-center",
+                    "pd-sidebar__cursor",
                     isActive ? "text-primary" : "text-comment/60"
                   )}
                 >
@@ -64,14 +62,9 @@ export function Sidebar() {
         ))}
       </nav>
 
-      <div className="mt-auto pt-4 border-t border-border space-y-3">
+      <div className="pd-sidebar__footer">
         <ThemeSwitcher />
-        <div
-          className={cn(
-            "text-[11px] leading-relaxed text-comment",
-            isMono ? "font-mono" : "font-sans"
-          )}
-        >
+        <div className={cn("pd-sidebar__footnote", fontClass)}>
           <p>{theme.copy.footer[0]}</p>
           <p>{theme.copy.footer[1]}</p>
         </div>
@@ -82,15 +75,10 @@ export function Sidebar() {
 
 export function MobileBar() {
   const theme = useTheme();
-  const isMono = theme.id === "terminal";
-  const items = [
-    { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
-    { to: "/finance", label: theme.copy.nav.finance, icon: Wallet },
-    { to: "/travel", label: theme.copy.nav.travel, icon: Map },
-    { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
-  ];
+  const items = buildItems(theme);
+  const fontClass = theme.id === "terminal" ? "font-mono" : "font-sans";
   return (
-    <nav className="md:hidden flex items-center justify-around gap-1 sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm px-2 py-2">
+    <nav className="pd-mobile-bar">
       {items.map((item) => (
         <NavLink
           key={item.to}
@@ -98,9 +86,9 @@ export function MobileBar() {
           end={item.end}
           className={({ isActive }) =>
             cn(
-              "flex flex-1 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[11px]",
-              isMono ? "font-mono" : "font-sans",
-              isActive ? "bg-muted text-emphasis" : "text-comment"
+              "pd-mobile-bar__item",
+              fontClass,
+              isActive ? "pd-mobile-bar__item--active" : "pd-mobile-bar__item--inactive"
             )
           }
         >

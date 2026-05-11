@@ -60,7 +60,7 @@ export function GoalsTab({ onAdd }: { onAdd: () => void }) {
               <div className="flex items-start justify-between gap-2">
                 <div className="space-y-0.5 min-w-0">
                   <div className="font-medium truncate">{g.title}</div>
-                  <div className="text-[11px] uppercase tracking-wider text-comment">
+                  <div className="pd-field-caption">
                     {SOURCE_LABEL[g.source]}
                   </div>
                 </div>

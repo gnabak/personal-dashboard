@@ -1,0 +1,39 @@
+/* Tokens (defaults; overridden at runtime by ThemeProvider) ────────── */
+@import "./tokens.css";
+
+/* Base — body / typography / selection ─────────────────────────────── */
+@import "./base.css";
+
+/* Per-data-theme decoration (scanlines / vignette / grid / paper) ──── */
+@import "./themes.css";
+
+/* Custom utilities (.scrollbar-thin, etc.) ─────────────────────────── */
+@import "./utilities.css";
+
+/* Reusable component classes (alphabetical) ────────────────────────── */
+@import "./components/badge.css";
+@import "./components/button.css";
+@import "./components/card.css";
+@import "./components/dialog.css";
+@import "./components/input.css";
+@import "./components/label.css";
+@import "./components/progress.css";
+@import "./components/tabs.css";
+
+/* Layout ───────────────────────────────────────────────────────────── */
+@import "./layout/page-header.css";
+@import "./layout/sidebar.css";
+@import "./layout/theme-switcher.css";
+
+/* Page-specific patterns ───────────────────────────────────────────── */
+@import "./pages/finance.css";
+@import "./pages/hobbies.css";
+@import "./pages/overview.css";
+@import "./pages/travel.css";
+
+/* Third-party — Leaflet skin tied to theme tokens ──────────────────── */
+@import "./leaflet.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

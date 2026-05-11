@@ -1,0 +1,18 @@
+@layer components {
+  .pd-tabs-list {
+    @apply inline-flex h-9 items-center justify-center gap-1 rounded-md border border-border bg-muted p-1 text-comment;
+  }
+
+  .pd-tabs-trigger {
+    @apply inline-flex items-center justify-center whitespace-nowrap rounded-sm px-3 py-1 text-xs font-mono transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring/60;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+    @apply hover:text-foreground;
+    @apply data-[state=active]:bg-background data-[state=active]:text-gold data-[state=active]:border data-[state=active]:border-border;
+  }
+
+  .pd-tabs-content {
+    @apply mt-3;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60;
+  }
+}

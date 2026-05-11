@@ -1,0 +1,23 @@
+@layer components {
+  .pd-page-header {
+    @apply flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between;
+  }
+
+  .pd-page-header__eyebrow {
+    @apply text-xs text-comment;
+  }
+  .pd-page-header__eyebrow--mono {
+    @apply font-mono;
+  }
+  .pd-page-header__eyebrow--sans {
+    @apply font-sans tracking-wide uppercase;
+  }
+
+  .pd-page-header__title {
+    @apply font-display text-2xl sm:text-3xl leading-tight text-emphasis;
+  }
+
+  .pd-page-header__description {
+    @apply text-sm text-comment max-w-2xl;
+  }
+}

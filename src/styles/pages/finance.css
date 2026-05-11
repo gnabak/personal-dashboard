@@ -1,0 +1,60 @@
+@layer components {
+  /* Generic dashboard "stat" card with label / big value / subline */
+  .pd-stat {
+    @apply glass p-4;
+  }
+  .pd-stat__label {
+    @apply text-[11px] uppercase tracking-[0.18em] text-comment;
+  }
+  .pd-stat__value {
+    @apply font-display text-2xl mt-1 tabular-nums;
+  }
+  .pd-stat__sub {
+    @apply text-xs text-comment mt-0.5;
+  }
+
+  /* Account tile in the AccountsBar */
+  .pd-account {
+    @apply rounded-md border border-border bg-muted/40 p-3;
+  }
+  .pd-account__icon {
+    @apply h-7 w-7 rounded-sm grid place-items-center border;
+  }
+  .pd-account__type {
+    @apply text-xs text-comment uppercase tracking-wider;
+  }
+
+  /* Generic data table used on Transactions and Investments tabs */
+  .pd-table-wrap {
+    @apply rounded-md border border-border overflow-hidden;
+  }
+  .pd-table {
+    @apply w-full text-sm;
+  }
+  .pd-table thead {
+    @apply bg-muted text-comment uppercase tracking-wider text-[11px];
+  }
+  .pd-table th {
+    @apply px-3 py-2 text-left;
+  }
+  .pd-table th.pd-num {
+    @apply text-right;
+  }
+  .pd-table tbody tr {
+    @apply border-t border-border;
+  }
+  .pd-table tbody tr:hover {
+    background-color: rgb(var(--color-muted) / 0.4);
+  }
+  .pd-table td {
+    @apply px-3 py-2;
+  }
+  .pd-table td.pd-num {
+    @apply text-right tabular-nums;
+  }
+
+  /* Section heading used inside finance tabs */
+  .pd-finance-h3 {
+    @apply font-display text-sm uppercase tracking-wider text-emphasis;
+  }
+}

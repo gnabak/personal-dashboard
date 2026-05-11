@@ -1,0 +1,10 @@
+@layer components {
+  .pd-label {
+    @apply text-[11px] font-mono uppercase tracking-[0.18em] text-comment;
+  }
+
+  /* Field-group caption used inside cards (sm uppercase) */
+  .pd-field-caption {
+    @apply text-[11px] uppercase tracking-[0.18em] text-comment;
+  }
+}

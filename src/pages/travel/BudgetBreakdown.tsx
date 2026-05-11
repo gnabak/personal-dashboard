@@ -47,7 +47,7 @@ export function BudgetBreakdown({ trip }: { trip: Trip }) {
     <div className="space-y-4">
       <div className="rounded-xl border border-border bg-muted/40 p-4">
         <div className="flex items-baseline justify-between">
-          <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+          <div className="pd-field-caption">
             Total budget
           </div>
           <div className="text-2xl font-semibold tabular-nums">{fmt(grand)}</div>

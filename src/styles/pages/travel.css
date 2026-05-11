@@ -1,0 +1,66 @@
+@layer components {
+  /* Two-pane shell: left sidebar (trips/destinations), right map */
+  .pd-travel-shell {
+    @apply h-[calc(100vh-0px)] md:h-screen flex flex-col;
+  }
+  .pd-travel-cols {
+    @apply flex flex-col lg:flex-row flex-1 min-h-0;
+  }
+  .pd-travel-sidebar {
+    @apply lg:w-96 lg:border-r border-border flex flex-col gap-3 p-4 lg:p-5 lg:overflow-y-auto scrollbar-thin bg-background/95 relative z-10;
+  }
+
+  /* Filter chip used by status filters and map filter row */
+  .pd-chip {
+    @apply rounded border px-2 py-0.5 text-xs transition-colors;
+  }
+  .pd-chip--active {
+    @apply border-emphasis bg-muted text-emphasis;
+  }
+  .pd-chip--inactive {
+    @apply border-border bg-transparent text-comment hover:text-foreground hover:bg-muted/60;
+  }
+
+  /* Selectable status pill (dialog) */
+  .pd-status-pill {
+    @apply flex-1 flex items-center justify-center gap-2 rounded-lg border px-3 py-2 text-sm transition-colors;
+  }
+  .pd-status-pill--active {
+    @apply border-emphasis bg-muted;
+  }
+  .pd-status-pill--inactive {
+    @apply border-border bg-muted/40 hover:bg-muted/60;
+  }
+
+  /* Coloured swatch button (color picker) */
+  .pd-swatch {
+    @apply h-7 w-7 rounded-full border-2 transition-transform;
+  }
+  .pd-swatch--active {
+    @apply border-foreground scale-110;
+  }
+  .pd-swatch--inactive {
+    @apply border-border hover:scale-105;
+  }
+
+  /* Single destination entry in the side list */
+  .pd-dest-row {
+    @apply w-full text-left flex items-center gap-2 rounded px-2 py-1 hover:bg-muted line-highlight;
+  }
+
+  /* Map "click anywhere to drop a pin" hint */
+  .pd-map-hint {
+    @apply pointer-events-none absolute left-4 bottom-4 hidden md:flex items-center gap-2 text-xs z-[400];
+  }
+
+  /* Trip card row (TripList) */
+  .pd-trip-card {
+    @apply w-full text-left rounded-md border px-3 py-3 transition-colors flex items-center gap-3;
+  }
+  .pd-trip-card--selected {
+    @apply border-emphasis bg-muted;
+  }
+  .pd-trip-card--idle {
+    @apply border-border bg-muted/40 hover:bg-muted/60;
+  }
+}

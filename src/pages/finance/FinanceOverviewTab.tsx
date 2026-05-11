@@ -271,7 +271,7 @@ function Stat({
 }) {
   return (
     <div className="glass p-4">
-      <div className="text-[11px] uppercase tracking-[0.18em] text-comment">
+      <div className="pd-field-caption">
         {label}
       </div>
       <div

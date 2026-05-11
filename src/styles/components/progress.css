@@ -1,0 +1,8 @@
+@layer components {
+  .pd-progress {
+    @apply relative h-1.5 w-full overflow-hidden rounded-sm bg-muted border border-border;
+  }
+  .pd-progress__indicator {
+    @apply h-full transition-all duration-500 ease-out;
+  }
+}

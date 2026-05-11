@@ -31,7 +31,7 @@ export function ThemeSwitcher() {
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
-        className="w-full flex items-center gap-2 rounded-md border border-border bg-muted/40 px-2.5 py-1.5 text-sm hover:bg-muted/60 transition-colors"
+        className="pd-theme-switcher__trigger"
         title="Change theme"
       >
         <Palette className="h-3.5 w-3.5 text-comment" />
@@ -42,7 +42,7 @@ export function ThemeSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute left-0 right-0 bottom-full mb-2 rounded-md border border-border bg-background shadow-xl z-50 overflow-hidden">
+        <div className="pd-theme-switcher__menu">
           <ul role="listbox" className="max-h-80 overflow-y-auto scrollbar-thin">
             {THEME_IDS.map((id) => {
               const t = THEMES[id];
@@ -58,10 +58,8 @@ export function ThemeSwitcher() {
                       setOpen(false);
                     }}
                     className={cn(
-                      "w-full flex items-start gap-3 px-3 py-2.5 text-left transition-colors",
-                      selected
-                        ? "bg-muted/70"
-                        : "hover:bg-muted/40"
+                      "pd-theme-switcher__option",
+                      selected && "pd-theme-switcher__option--selected"
                     )}
                   >
                     <Swatches theme={t} />
@@ -87,7 +85,11 @@ export function ThemeSwitcher() {
   );
 }
 
-function Swatches({ theme }: { theme: { colors: { primary: string; warm: string; cool: string; emphasis: string } } }) {
+function Swatches({
+  theme,
+}: {
+  theme: { colors: { primary: string; warm: string; cool: string; emphasis: string } };
+}) {
   const c = theme.colors;
   return (
     <div className="flex shrink-0 items-center gap-0.5">
@@ -102,7 +104,7 @@ function Swatches({ theme }: { theme: { colors: { primary: string; warm: string;
 function Swatch({ rgb }: { rgb: string }) {
   return (
     <span
-      className="h-3 w-3 rounded-sm border border-border"
+      className="pd-theme-switcher__swatch"
       style={{ background: `rgb(${rgb})` }}
     />
   );

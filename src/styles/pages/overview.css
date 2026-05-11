@@ -1,0 +1,31 @@
+@layer components {
+  /* Summary card on Overview (clickable, links to a route) */
+  .pd-summary-card {
+    @apply glass glass-hover p-4 transition-colors block;
+  }
+  .pd-summary-card__icon {
+    @apply h-7 w-7 rounded-sm grid place-items-center border;
+  }
+  .pd-summary-card__label {
+    @apply mt-3 text-[11px] uppercase tracking-[0.18em] text-comment;
+  }
+  .pd-summary-card__value {
+    @apply font-display text-2xl mt-1 text-foreground tabular-nums;
+  }
+  .pd-summary-card__sub {
+    @apply font-mono text-xs text-comment mt-0.5;
+  }
+
+  /* Compact link in section headers ("View all", "cd ~/hobbies") */
+  .pd-section-link {
+    @apply text-xs text-comment hover:text-primary inline-flex items-center gap-1 transition-colors;
+  }
+
+  /* Activity feed row */
+  .pd-activity-row {
+    @apply flex items-start gap-3 rounded-md border border-border bg-muted/40 px-3 py-2;
+  }
+  .pd-activity-icon {
+    @apply h-6 w-6 rounded-sm grid place-items-center border shrink-0;
+  }
+}

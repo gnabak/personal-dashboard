@@ -16,12 +16,10 @@ export function Badge({
   return (
     <div
       className={cn(
-        "inline-flex items-center rounded px-2 py-0.5 text-[11px] font-mono border leading-tight",
-        variant === "default" &&
-          "bg-muted border-border text-orange",
-        variant === "outline" &&
-          "bg-transparent border-border text-comment",
-        variant === "soft" && "border-transparent bg-muted",
+        "pd-badge",
+        variant === "default" && "pd-badge--default",
+        variant === "outline" && "pd-badge--outline",
+        variant === "soft" && "pd-badge--soft",
         className
       )}
       style={

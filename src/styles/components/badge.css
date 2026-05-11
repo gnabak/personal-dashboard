@@ -1,0 +1,14 @@
+@layer components {
+  .pd-badge {
+    @apply inline-flex items-center rounded px-2 py-0.5 text-[11px] font-mono border leading-tight;
+  }
+  .pd-badge--default {
+    @apply bg-muted border-border text-orange;
+  }
+  .pd-badge--outline {
+    @apply bg-transparent border-border text-comment;
+  }
+  .pd-badge--soft {
+    @apply border-transparent bg-muted;
+  }
+}

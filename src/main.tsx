@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
 import App from "./App";
 import "leaflet/dist/leaflet.css";
-import "./index.css";
+import "./styles/index.css";
 import { Toaster } from "sonner";
 import { ThemeProvider } from "./themes/ThemeProvider";
 

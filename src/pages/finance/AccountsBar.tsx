@@ -47,7 +47,7 @@ export function AccountsBar({ onAddAccount }: { onAddAccount: () => void }) {
         return (
           <div
             key={a.id}
-            className="rounded-md border border-border bg-muted/40 p-3"
+            className="pd-tile--padded"
           >
             <div className="flex items-center gap-2">
               <span

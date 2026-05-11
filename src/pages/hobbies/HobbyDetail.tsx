@@ -64,7 +64,7 @@ export function HobbyDetail({ hobby, open, onOpenChange }: HobbyDetailProps) {
             )}
             <div className="mt-3 grid grid-cols-2 gap-2">
               <div className="rounded-lg border border-border bg-muted/40 p-2.5">
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                <div className="pd-field-caption">
                   Progress
                 </div>
                 <div className="text-lg font-semibold">{progress}%</div>
@@ -75,7 +75,7 @@ export function HobbyDetail({ hobby, open, onOpenChange }: HobbyDetailProps) {
                 />
               </div>
               <div className="rounded-lg border border-border bg-muted/40 p-2.5">
-                <div className="text-[11px] uppercase tracking-wider text-muted-foreground">
+                <div className="pd-field-caption">
                   Time logged
                 </div>
                 <div className="text-lg font-semibold">
@@ -247,7 +247,7 @@ function SessionsTab({ hobby, accent }: { hobby: Hobby; accent: string }) {
   return (
     <div className="space-y-4">
       <div className="rounded-xl border border-border bg-muted/40 p-3">
-        <div className="text-[11px] uppercase tracking-wider text-muted-foreground mb-2">
+        <div className="pd-field-caption mb-2">
           Last 8 weeks
         </div>
         <div className="flex items-end gap-1.5 h-16">

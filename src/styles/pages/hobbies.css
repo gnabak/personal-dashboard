@@ -1,0 +1,19 @@
+@layer components {
+  /*
+   * Hobby card on the grid. Per-hobby accent colour is injected via a
+   * `--accent` CSS variable on the element, so the gradient line at the
+   * top of the card adapts.
+   */
+  .pd-hobby-card {
+    @apply relative text-left glass glass-hover p-5 flex flex-col gap-4 transition-transform;
+    @apply hover:-translate-y-0.5 hover:shadow-2xl;
+  }
+
+  .pd-hobby-card__edge {
+    @apply absolute inset-x-0 -top-px h-px;
+  }
+
+  .pd-hobby-card__icon {
+    @apply h-11 w-11 rounded-xl grid place-items-center border;
+  }
+}

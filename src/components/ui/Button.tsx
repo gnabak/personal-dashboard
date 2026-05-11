@@ -3,33 +3,25 @@ import { Slot } from "@radix-ui/react-slot";
 import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
-const buttonVariants = cva(
-  "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-mono transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background disabled:pointer-events-none disabled:opacity-50 [&_svg]:size-3.5 [&_svg]:shrink-0",
-  {
-    variants: {
-      variant: {
-        default:
-          "bg-transparent border border-green text-green hover:bg-green hover:text-background",
-        secondary:
-          "bg-muted border border-border text-foreground hover:bg-border hover:text-gold",
-        ghost:
-          "bg-transparent text-comment hover:text-green hover:bg-muted/60",
-        outline:
-          "border border-border bg-transparent text-foreground hover:bg-muted hover:border-comment",
-        destructive:
-          "bg-transparent border border-red text-red hover:bg-red hover:text-background",
-        link: "text-green underline underline-offset-4 decoration-green/40 hover:decoration-green",
-      },
-      size: {
-        default: "h-9 px-3.5",
-        sm: "h-8 px-3 text-xs",
-        lg: "h-10 px-5",
-        icon: "h-9 w-9",
-      },
+const buttonVariants = cva("pd-btn", {
+  variants: {
+    variant: {
+      default: "pd-btn--default",
+      secondary: "pd-btn--secondary",
+      ghost: "pd-btn--ghost",
+      outline: "pd-btn--outline",
+      destructive: "pd-btn--destructive",
+      link: "pd-btn--link",
     },
-    defaultVariants: { variant: "default", size: "default" },
-  }
-);
+    size: {
+      default: "pd-btn--md",
+      sm: "pd-btn--sm",
+      lg: "pd-btn--lg",
+      icon: "pd-btn--icon",
+    },
+  },
+  defaultVariants: { variant: "default", size: "default" },
+});
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement>,
@@ -43,7 +35,7 @@ export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
     return (
       <Comp
         ref={ref}
-        className={cn(buttonVariants({ variant, size, className }))}
+        className={cn(buttonVariants({ variant, size }), className)}
         {...props}
       />
     );

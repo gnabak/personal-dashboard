@@ -1,0 +1,58 @@
+@layer components {
+  /*
+   * Bordered theme card. Background, border colour, shadow and blur all
+   * come from theme-driven CSS variables so every card swaps with the
+   * active theme.
+   */
+  .glass {
+    border-radius: var(--radius-card);
+    background: var(--card-bg);
+    border: 1px solid var(--card-border-color);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
+  }
+  .glass-strong {
+    border-radius: var(--radius-card);
+    background: rgb(var(--color-muted) / 0.85);
+    border: 1px solid var(--card-border-color);
+    box-shadow: var(--card-shadow);
+    backdrop-filter: var(--card-backdrop);
+    -webkit-backdrop-filter: var(--card-backdrop);
+  }
+  .glass-hover {
+    @apply transition-colors;
+  }
+  .glass-hover:hover {
+    background: rgb(var(--color-muted) / 0.6);
+  }
+
+  /*
+   * Generic compact tile used for stat blocks and side panels.
+   * Border, padding, neutral muted background.
+   */
+  .pd-tile {
+    @apply rounded-md border border-border bg-muted/40;
+  }
+  .pd-tile--padded {
+    @apply rounded-md border border-border bg-muted/40 p-3;
+  }
+  .pd-tile--padded-lg {
+    @apply rounded-md border border-border bg-muted/40 p-4;
+  }
+
+  /* Compact list-row card (e.g. milestones, packing items) */
+  .pd-row {
+    @apply flex items-center gap-2 rounded-md border border-border bg-muted/40 px-2.5 py-2;
+  }
+
+  /* Empty-state hint with dashed border */
+  .pd-empty-hint {
+    @apply rounded-md border border-dashed border-border p-6 text-center text-sm text-comment;
+  }
+
+  /* Section heading for Overview ($-prefixed in terminal theme) */
+  .pd-section-heading {
+    @apply font-display text-lg text-emphasis;
+  }
+}
