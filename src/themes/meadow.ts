@@ -48,11 +48,11 @@ export const meadowTheme: Theme = {
     brand: "Little Garden",
     tagline: "A small place to grow your goals.",
     nav: {
-      overview: "Home",
-      travel: "Wanderings",
+      overview: "Overview",
+      travel: "Travel",
       hobbies: "Hobbies",
-      finance: "Coins",
-      meals: "Kitchen",
+      finance: "Finance",
+      meals: "Meals",
     },
     greeting: {
       morning: "Good morning, friend.",
@@ -84,7 +84,7 @@ export const meadowTheme: Theme = {
       },
     },
     travel: {
-      eyebrow: "Wanderings",
+      eyebrow: "Travel",
       title: "Places to wander",
       newTrip: "New journey",
       statusLabels: {
@@ -98,7 +98,7 @@ export const meadowTheme: Theme = {
       filters: { all: "All" },
     },
     hobbies: {
-      eyebrow: "Pursuits",
+      eyebrow: "Hobbies",
       title: "Things you're growing",
       description:
         "Tend a few small things. Mark sprouts as they bloom, log time, watch them flower.",
@@ -111,15 +111,15 @@ export const meadowTheme: Theme = {
       },
     },
     finance: {
-      eyebrow: "Coins",
+      eyebrow: "Finance",
       title: "Coin purse & savings",
       description:
         "Note what comes in, what goes out, and what you're saving toward. Import a list if you've got one.",
       tabs: {
         overview: "Overview",
-        transactions: "Coins",
-        investments: "Stockpile",
-        goals: "Wishes",
+        transactions: "Transactions",
+        investments: "Investments",
+        goals: "Goals",
       },
       actions: {
         addAccount: "New purse",
@@ -144,11 +144,11 @@ export const meadowTheme: Theme = {
       },
     },
     meals: {
-      eyebrow: "Kitchen",
+      eyebrow: "Meals",
       title: "Cooking this week",
       description:
         "Keep recipes in a little book, plan the week, and a shopping list grows on its own.",
-      tabs: { recipes: "Recipe book", plans: "Week", shopping: "Shopping" },
+      tabs: { recipes: "Recipes", plans: "Plans", shopping: "Shopping" },
       actions: {
         newRecipe: "New recipe",
         newPlan: "Plan a week",

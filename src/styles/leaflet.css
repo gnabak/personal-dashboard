@@ -50,7 +50,9 @@
   border-radius: 2px;
 }
 [data-theme="aurora"] .pd-pin,
-[data-theme="meadow"] .pd-pin {
+[data-theme="meadow"] .pd-pin,
+[data-theme="cirrus"] .pd-pin,
+[data-theme="carnival"] .pd-pin {
   border-radius: 999px;
 }
 .pd-pin.wishlist {

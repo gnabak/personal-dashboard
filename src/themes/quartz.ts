@@ -46,11 +46,11 @@ export const quartzTheme: Theme = {
     brand: "Portfolio",
     tagline: "Personal goals, run like a desk.",
     nav: {
-      overview: "Dashboard",
+      overview: "Overview",
       travel: "Travel",
-      hobbies: "Positions",
-      finance: "Markets",
-      meals: "Provisions",
+      hobbies: "Hobbies",
+      finance: "Finance",
+      meals: "Meals",
     },
     greeting: {
       morning: "Good morning.",
@@ -96,7 +96,7 @@ export const quartzTheme: Theme = {
       filters: { all: "All" },
     },
     hobbies: {
-      eyebrow: "Positions",
+      eyebrow: "Hobbies",
       title: "Active positions",
       description:
         "Track each position's milestones and time deployed. Close them as they bloom.",
@@ -109,7 +109,7 @@ export const quartzTheme: Theme = {
       },
     },
     finance: {
-      eyebrow: "Markets",
+      eyebrow: "Finance",
       title: "Portfolio & cash flow",
       description:
         "Cash in, cash out, positions held. Import statements when you have them.",
@@ -142,11 +142,11 @@ export const quartzTheme: Theme = {
       },
     },
     meals: {
-      eyebrow: "Provisions",
+      eyebrow: "Meals",
       title: "Inventory & consumption",
       description:
         "Recipes catalogued, plan the week, shopping list aggregated.",
-      tabs: { recipes: "Catalogue", plans: "Schedule", shopping: "Manifest" },
+      tabs: { recipes: "Recipes", plans: "Plans", shopping: "Shopping" },
       actions: {
         newRecipe: "New entry",
         newPlan: "New schedule",

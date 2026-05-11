@@ -5,7 +5,13 @@
  * `data-theme` on <html>.
  */
 
-export type ThemeId = "terminal" | "aurora" | "meadow" | "quartz";
+export type ThemeId =
+  | "terminal"
+  | "aurora"
+  | "meadow"
+  | "quartz"
+  | "carnival"
+  | "cirrus";
 
 /** RGB triplet "r g b" — consumed by Tailwind's `rgb(var(--color-x) / <alpha-value>)` */
 export type Rgb = string;
