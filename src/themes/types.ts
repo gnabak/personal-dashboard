@@ -69,7 +69,13 @@ export interface ThemeCopy {
   brand: string;
   tagline: string;
 
-  nav: { overview: string; travel: string; hobbies: string; finance: string };
+  nav: {
+    overview: string;
+    travel: string;
+    hobbies: string;
+    finance: string;
+    meals: string;
+  };
 
   greeting: {
     morning: string;
@@ -150,6 +156,30 @@ export interface ThemeCopy {
       transactions: string;
       holdings: string;
       goals: string;
+    };
+  };
+
+  meals: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    tabs: { recipes: string; plans: string; shopping: string };
+    actions: {
+      newRecipe: string;
+      newPlan: string;
+      clearChecked: string;
+      copyList: string;
+    };
+    slots: {
+      breakfast: string;
+      lunch: string;
+      dinner: string;
+      snack: string;
+    };
+    empty: {
+      recipes: { text: string; cta: string };
+      plans: { text: string; cta: string };
+      shopping: string;
     };
   };
 

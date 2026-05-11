@@ -47,7 +47,13 @@ export const auroraTheme: Theme = {
   copy: {
     brand: "Dashboard",
     tagline: "Personal goals, beautifully tracked.",
-    nav: { overview: "Overview", travel: "Travel", hobbies: "Hobbies", finance: "Finance" },
+    nav: {
+      overview: "Overview",
+      travel: "Travel",
+      hobbies: "Hobbies",
+      finance: "Finance",
+      meals: "Meals",
+    },
     greeting: {
       morning: "Good morning.",
       afternoon: "Good afternoon.",
@@ -130,6 +136,29 @@ export const auroraTheme: Theme = {
         transactions: "No transactions in this view.",
         holdings: "No holdings tracked yet.",
         goals: "No finance goals yet.",
+      },
+    },
+    meals: {
+      eyebrow: "Meals",
+      title: "What you're eating this week",
+      description: "Save recipes, plan the week, generate a shopping list.",
+      tabs: { recipes: "Recipes", plans: "Plans", shopping: "Shopping list" },
+      actions: {
+        newRecipe: "New recipe",
+        newPlan: "New plan",
+        clearChecked: "Uncheck all",
+        copyList: "Copy list",
+      },
+      slots: {
+        breakfast: "Breakfast",
+        lunch: "Lunch",
+        dinner: "Dinner",
+        snack: "Snack",
+      },
+      empty: {
+        recipes: { text: "No recipes yet.", cta: "Add one" },
+        plans: { text: "No plans yet.", cta: "Draft a week" },
+        shopping: "Pick a plan to generate a shopping list.",
       },
     },
     footer: [

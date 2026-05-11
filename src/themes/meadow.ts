@@ -52,6 +52,7 @@ export const meadowTheme: Theme = {
       travel: "Wanderings",
       hobbies: "Hobbies",
       finance: "Coins",
+      meals: "Kitchen",
     },
     greeting: {
       morning: "Good morning, friend.",
@@ -140,6 +141,30 @@ export const meadowTheme: Theme = {
         transactions: "No coins logged in this view.",
         holdings: "Stockpile is bare.",
         goals: "No wishes yet.",
+      },
+    },
+    meals: {
+      eyebrow: "Kitchen",
+      title: "Cooking this week",
+      description:
+        "Keep recipes in a little book, plan the week, and a shopping list grows on its own.",
+      tabs: { recipes: "Recipe book", plans: "Week", shopping: "Shopping" },
+      actions: {
+        newRecipe: "New recipe",
+        newPlan: "Plan a week",
+        clearChecked: "Untick all",
+        copyList: "Copy list",
+      },
+      slots: {
+        breakfast: "Breakfast",
+        lunch: "Lunch",
+        dinner: "Supper",
+        snack: "Snack",
+      },
+      empty: {
+        recipes: { text: "Recipe book is empty.", cta: "Write the first" },
+        plans: { text: "No weeks planned.", cta: "Sketch a week" },
+        shopping: "Pick a week to grow a shopping list.",
       },
     },
     footer: [

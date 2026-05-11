@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { LayoutDashboard, Map, Sparkles, Wallet } from "lucide-react";
+import { LayoutDashboard, Map, Sparkles, Wallet, ChefHat } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useTheme } from "@/themes/context";
 import { ThemeSwitcher } from "@/components/ThemeSwitcher";
@@ -8,6 +8,7 @@ function buildItems(theme: ReturnType<typeof useTheme>) {
   return [
     { to: "/", label: theme.copy.nav.overview, icon: LayoutDashboard, end: true },
     { to: "/finance", label: theme.copy.nav.finance, icon: Wallet },
+    { to: "/meals", label: theme.copy.nav.meals, icon: ChefHat },
     { to: "/travel", label: theme.copy.nav.travel, icon: Map },
     { to: "/hobbies", label: theme.copy.nav.hobbies, icon: Sparkles },
   ];
