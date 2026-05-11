@@ -67,9 +67,9 @@ export function TravelPage() {
   }
 
   return (
-    <div className="h-[calc(100vh-0px)] md:h-screen flex flex-col">
-      <div className="flex flex-col lg:flex-row flex-1 min-h-0">
-        <div className="lg:w-96 lg:border-r border-border flex flex-col gap-3 p-4 lg:p-5 lg:overflow-y-auto scrollbar-thin bg-background/95 relative z-10">
+    <div className="pd-travel-shell">
+      <div className="pd-travel-cols">
+        <div className="pd-travel-sidebar">
           <div className="flex items-center justify-between">
             <div className="space-y-1">
               <div
@@ -102,11 +102,9 @@ export function TravelPage() {
                 key={f.value}
                 onClick={() => setFilter(f.value)}
                 className={cn(
-                  "rounded border px-2 py-0.5 text-xs transition-colors",
+                  "pd-chip",
                   isMono ? "font-mono" : "font-sans",
-                  filter === f.value
-                    ? "border-emphasis bg-muted text-emphasis"
-                    : "border-border bg-transparent text-comment hover:text-foreground hover:bg-muted/60"
+                  filter === f.value ? "pd-chip--active" : "pd-chip--inactive"
                 )}
               >
                 {f.label}
@@ -117,7 +115,7 @@ export function TravelPage() {
           <div className="space-y-2 mt-1">
             <div
               className={cn(
-                "text-[11px] uppercase tracking-[0.18em] text-comment",
+                "pd-field-caption",
                 isMono ? "font-mono" : "font-sans"
               )}
             >
@@ -132,7 +130,7 @@ export function TravelPage() {
           <div className="space-y-2 mt-2">
             <div
               className={cn(
-                "text-[11px] uppercase tracking-[0.18em] text-comment",
+                "pd-field-caption",
                 isMono ? "font-mono" : "font-sans"
               )}
             >
@@ -149,16 +147,13 @@ export function TravelPage() {
               </div>
             ) : (
               <ul
-                className={cn(
-                  "space-y-0.5",
-                  isMono ? "font-mono" : "font-sans"
-                )}
+                className={cn("space-y-0.5", isMono ? "font-mono" : "font-sans")}
               >
                 {visibleDestinations.slice(0, 50).map((d) => (
                   <li key={d.id}>
                     <button
                       onClick={() => handleEditDestination(d.id)}
-                      className="w-full text-left flex items-center gap-2 rounded px-2 py-1 hover:bg-muted line-highlight"
+                      className="pd-dest-row"
                     >
                       <span
                         className="h-1.5 w-1.5 shrink-0 rounded-sm"
@@ -186,7 +181,7 @@ export function TravelPage() {
             onEditDestination={handleEditDestination}
             onSelectDestination={handleEditDestination}
           />
-          <div className="pointer-events-none absolute left-4 bottom-4 hidden md:flex items-center gap-2 text-xs z-[400]">
+          <div className="pd-map-hint">
             <Badge
               variant="default"
               className="pointer-events-auto bg-background/80 backdrop-blur border-border"
@@ -280,10 +275,10 @@ function Stat({
   const theme = useTheme();
   const isMono = theme.id === "terminal";
   return (
-    <div className="rounded-md border border-border bg-muted/40 p-2.5">
+    <div className="pd-tile p-2.5">
       <div
         className={cn(
-          "flex items-center gap-1.5 text-[11px] uppercase tracking-[0.18em] text-comment",
+          "flex items-center gap-1.5 pd-field-caption",
           isMono ? "font-mono" : "font-sans"
         )}
       >

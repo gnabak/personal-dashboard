@@ -99,7 +99,7 @@ export function TravelMap({
           <Popup>
             <div className="space-y-1.5 min-w-[160px]">
               <div className="font-semibold text-sm">{d.name}</div>
-              <div className="text-[11px] uppercase tracking-wider text-muted-foreground inline-flex items-center gap-1">
+              <div className="pd-field-caption inline-flex items-center gap-1">
                 <MapPin className="h-3 w-3" /> {d.status}
               </div>
               {d.notes && (

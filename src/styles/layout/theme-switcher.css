@@ -1,0 +1,22 @@
+@layer components {
+  .pd-theme-switcher__trigger {
+    @apply w-full flex items-center gap-2 rounded-md border border-border bg-muted/40 px-2.5 py-1.5 text-sm transition-colors;
+    @apply hover:bg-muted/60;
+  }
+
+  .pd-theme-switcher__menu {
+    @apply absolute left-0 right-0 bottom-full mb-2 rounded-md border border-border bg-background shadow-xl z-50 overflow-hidden;
+  }
+
+  .pd-theme-switcher__option {
+    @apply w-full flex items-start gap-3 px-3 py-2.5 text-left transition-colors;
+    @apply hover:bg-muted/40;
+  }
+  .pd-theme-switcher__option--selected {
+    @apply bg-muted/70;
+  }
+
+  .pd-theme-switcher__swatch {
+    @apply h-3 w-3 rounded-sm border border-border;
+  }
+}

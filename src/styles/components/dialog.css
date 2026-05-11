@@ -1,0 +1,44 @@
+@layer components {
+  .pd-dialog-overlay {
+    @apply fixed inset-0 z-[1000] bg-background/80;
+    @apply data-[state=open]:animate-in data-[state=closed]:animate-out;
+    @apply data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0;
+  }
+
+  .pd-dialog-content {
+    @apply fixed z-[1001] grid gap-4 border border-border bg-background text-foreground shadow-2xl shadow-black/50 duration-200;
+    @apply data-[state=open]:animate-in data-[state=closed]:animate-out;
+    @apply data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0;
+  }
+  .pd-dialog-content--center {
+    @apply left-[50%] top-[50%] w-full max-w-lg translate-x-[-50%] translate-y-[-50%] rounded-lg p-6;
+    @apply data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95;
+  }
+  .pd-dialog-content--right {
+    @apply right-0 top-0 h-full w-full max-w-md p-6 border-l overflow-y-auto;
+    @apply data-[state=closed]:slide-out-to-right data-[state=open]:slide-in-from-right;
+    @apply scrollbar-thin;
+  }
+
+  .pd-dialog-close {
+    @apply absolute right-4 top-4 rounded p-1 text-comment;
+    @apply hover:text-gold transition-colors;
+    @apply focus:outline-none focus:ring-2 focus:ring-ring/60;
+  }
+
+  .pd-dialog-title {
+    @apply font-display text-lg font-bold leading-none tracking-tight text-gold;
+  }
+
+  .pd-dialog-description {
+    @apply text-sm font-mono text-comment;
+  }
+
+  .pd-dialog-header {
+    @apply flex flex-col space-y-1.5 text-left;
+  }
+
+  .pd-dialog-footer {
+    @apply flex flex-col-reverse sm:flex-row sm:justify-end sm:space-x-2 gap-2;
+  }
+}

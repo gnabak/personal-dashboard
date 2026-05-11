@@ -1,0 +1,30 @@
+@layer utilities {
+  .scrollbar-thin {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(var(--color-border)) transparent;
+  }
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: rgb(var(--color-border));
+    border-radius: 999px;
+  }
+
+  /* Hover line-highlight (for list items / row buttons) */
+  .line-highlight {
+    transition: background-color 0.15s ease;
+    border-radius: 0.375rem;
+  }
+  .line-highlight:hover {
+    background-color: rgb(var(--color-muted));
+  }
+
+  /* Subtle accent ring (used by sidebar active item, etc.) */
+  .ring-accent {
+    box-shadow:
+      0 0 0 1px rgb(var(--color-primary) / 0.4),
+      0 0 18px rgb(var(--color-primary) / 0.15);
+  }
+}

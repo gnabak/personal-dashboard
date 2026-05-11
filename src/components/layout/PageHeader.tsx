@@ -22,35 +22,26 @@ export function PageHeader({
   const showCommentMarker = theme.id === "terminal";
   const isMono = theme.id === "terminal";
   return (
-    <div
-      className={cn(
-        "flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between",
-        className
-      )}
-    >
+    <div className={cn("pd-page-header", className)}>
       <div className="space-y-2">
         {eyebrow && (
           <div
             className={cn(
-              "text-xs text-comment",
-              isMono ? "font-mono" : "font-sans tracking-wide uppercase"
+              "pd-page-header__eyebrow",
+              isMono
+                ? "pd-page-header__eyebrow--mono"
+                : "pd-page-header__eyebrow--sans"
             )}
           >
             {showPrompt && <span className="text-comment/70 mr-1.5">$</span>}
             {eyebrow}
           </div>
         )}
-        <h1
-          className={cn(
-            "font-display text-2xl sm:text-3xl leading-tight text-emphasis"
-          )}
-        >
-          {title}
-        </h1>
+        <h1 className="pd-page-header__title">{title}</h1>
         {description && (
           <p
             className={cn(
-              "text-sm text-comment max-w-2xl",
+              "pd-page-header__description",
               isMono ? "font-mono" : "font-sans"
             )}
           >

@@ -1,0 +1,48 @@
+@layer components {
+  .pd-sidebar {
+    @apply hidden md:flex w-60 shrink-0 flex-col gap-6 border-r border-border bg-muted/40 p-5 relative z-10;
+  }
+
+  .pd-sidebar__brand {
+    @apply flex items-center gap-2;
+  }
+
+  .pd-sidebar__nav {
+    @apply flex flex-col gap-0.5;
+  }
+
+  .pd-sidebar__item {
+    @apply flex items-center gap-3 rounded-md px-3 py-1.5 text-sm transition-colors;
+  }
+  .pd-sidebar__item--active {
+    @apply bg-muted text-emphasis;
+  }
+  .pd-sidebar__item--inactive {
+    @apply text-comment hover:text-foreground hover:bg-muted/60;
+  }
+
+  .pd-sidebar__cursor {
+    @apply w-3 text-center;
+  }
+
+  .pd-sidebar__footer {
+    @apply mt-auto pt-4 border-t border-border space-y-3;
+  }
+  .pd-sidebar__footnote {
+    @apply text-[11px] leading-relaxed text-comment;
+  }
+
+  /* Mobile bottom-bar variant */
+  .pd-mobile-bar {
+    @apply md:hidden flex items-center justify-around gap-1 sticky top-0 z-40 border-b border-border bg-background/90 backdrop-blur-sm px-2 py-2;
+  }
+  .pd-mobile-bar__item {
+    @apply flex flex-1 flex-col items-center gap-1 rounded-md px-2 py-1.5 text-[11px];
+  }
+  .pd-mobile-bar__item--active {
+    @apply bg-muted text-emphasis;
+  }
+  .pd-mobile-bar__item--inactive {
+    @apply text-comment;
+  }
+}

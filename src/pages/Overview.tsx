@@ -270,7 +270,7 @@ export function Overview() {
                 return (
                   <li
                     key={h.id}
-                    className="rounded-md border border-border bg-muted/40 p-3"
+                    className="pd-tile--padded"
                   >
                     <div className="flex items-center justify-between gap-3">
                       <div
@@ -323,7 +323,7 @@ export function Overview() {
               {trips.slice(0, 4).map((t) => (
                 <li
                   key={t.id}
-                  className="rounded-md border border-border bg-muted/40 p-3"
+                  className="pd-tile--padded"
                 >
                   <div className="flex items-center gap-2">
                     <span
@@ -385,7 +385,7 @@ export function Overview() {
               return (
                 <li
                   key={g.id}
-                  className="rounded-md border border-border bg-muted/40 p-3 space-y-1.5"
+                  className="pd-tile--padded space-y-1.5"
                 >
                   <div className="flex items-baseline justify-between gap-2">
                     <span
@@ -502,13 +502,10 @@ function SummaryCard({
   const isMono = theme.id === "terminal";
   const accent = `rgb(var(${accentVar}))`;
   return (
-    <Link
-      to={to}
-      className="group glass glass-hover p-4 transition-colors block"
-    >
+    <Link to={to} className="group pd-summary-card">
       <div className="flex items-center justify-between">
         <div
-          className="h-7 w-7 rounded-sm grid place-items-center border"
+          className="pd-summary-card__icon"
           style={{
             background: `rgb(var(${accentVar}) / 0.12)`,
             borderColor: `rgb(var(${accentVar}) / 0.45)`,
@@ -521,18 +518,14 @@ function SummaryCard({
       </div>
       <div
         className={cn(
-          "mt-3 text-[11px] uppercase tracking-[0.18em] text-comment",
+          "pd-summary-card__label",
           isMono ? "font-mono" : "font-sans"
         )}
       >
         {label}
       </div>
-      <div className="font-display text-2xl mt-1 text-foreground tabular-nums">
-        {value}
-      </div>
-      {subValue && (
-        <div className="font-mono text-xs text-comment mt-0.5">{subValue}</div>
-      )}
+      <div className="pd-summary-card__value">{value}</div>
+      {subValue && <div className="pd-summary-card__sub">{subValue}</div>}
     </Link>
   );
 }

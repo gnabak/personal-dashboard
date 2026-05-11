@@ -1,0 +1,50 @@
+@layer components {
+  .pd-btn {
+    @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-mono transition-colors;
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:ring-offset-2 focus-visible:ring-offset-background;
+    @apply disabled:pointer-events-none disabled:opacity-50;
+  }
+  .pd-btn :is(svg) {
+    @apply size-3.5 shrink-0;
+  }
+
+  /* Variants */
+  .pd-btn--default {
+    @apply bg-transparent border border-green text-green;
+    @apply hover:bg-green hover:text-background;
+  }
+  .pd-btn--secondary {
+    @apply bg-muted border border-border text-foreground;
+    @apply hover:bg-border hover:text-gold;
+  }
+  .pd-btn--ghost {
+    @apply bg-transparent text-comment;
+    @apply hover:text-green hover:bg-muted/60;
+  }
+  .pd-btn--outline {
+    @apply border border-border bg-transparent text-foreground;
+    @apply hover:bg-muted hover:border-comment;
+  }
+  .pd-btn--destructive {
+    @apply bg-transparent border border-red text-red;
+    @apply hover:bg-red hover:text-background;
+  }
+  .pd-btn--link {
+    @apply text-green underline underline-offset-4 decoration-green/40;
+    @apply hover:decoration-green;
+  }
+
+  /* Sizes */
+  .pd-btn--md {
+    @apply h-9 px-3.5;
+  }
+  .pd-btn--sm {
+    @apply h-8 px-3 text-xs;
+  }
+  .pd-btn--lg {
+    @apply h-10 px-5;
+  }
+  .pd-btn--icon {
+    @apply h-9 w-9;
+  }
+}

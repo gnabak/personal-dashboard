@@ -1,0 +1,64 @@
+/*
+ * Leaflet skin tied to theme tokens. Pin shape (square vs round) is
+ * theme-driven so it harmonises with terminal/quartz vs aurora/meadow.
+ */
+.leaflet-container {
+  background: rgb(var(--color-background));
+  font-family: var(--font-sans);
+}
+.leaflet-control-attribution {
+  background: rgb(var(--color-muted) / 0.85) !important;
+  color: rgb(var(--color-subtle)) !important;
+  border-top: 1px solid rgb(var(--color-border));
+  font-family: var(--font-mono);
+  font-size: 10px !important;
+}
+.leaflet-control-attribution a {
+  color: rgb(var(--color-primary)) !important;
+}
+.leaflet-control-zoom a {
+  background: rgb(var(--color-muted)) !important;
+  color: rgb(var(--color-foreground)) !important;
+  border: 1px solid rgb(var(--color-border)) !important;
+}
+.leaflet-control-zoom a:hover {
+  background: rgb(var(--color-border)) !important;
+  color: rgb(var(--color-emphasis)) !important;
+}
+.leaflet-popup-content-wrapper,
+.leaflet-popup-tip {
+  background: rgb(var(--color-muted));
+  color: rgb(var(--color-foreground));
+  border: 1px solid rgb(var(--color-border));
+  border-radius: var(--radius-card);
+  font-family: var(--font-sans);
+}
+.leaflet-popup-content {
+  margin: 10px 12px;
+}
+.leaflet-popup-close-button {
+  color: rgb(var(--color-subtle)) !important;
+}
+.pd-pin {
+  width: 14px;
+  height: 14px;
+  border: 1px solid rgb(var(--color-background));
+  box-shadow: 0 0 0 1px rgb(0 0 0 / 0.6);
+}
+[data-theme="terminal"] .pd-pin,
+[data-theme="quartz"] .pd-pin {
+  border-radius: 2px;
+}
+[data-theme="aurora"] .pd-pin,
+[data-theme="meadow"] .pd-pin {
+  border-radius: 999px;
+}
+.pd-pin.wishlist {
+  background: rgb(var(--color-warm));
+}
+.pd-pin.planned {
+  background: rgb(var(--color-cool));
+}
+.pd-pin.visited {
+  background: rgb(var(--color-primary));
+}

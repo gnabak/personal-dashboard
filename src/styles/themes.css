@@ -1,0 +1,70 @@
+/*
+ * Per-theme decoration. Scoped by [data-theme] so swapping the theme
+ * also swaps the body background texture and any whole-page overlays.
+ */
+
+/* Terminal — scanlines + CRT vignette */
+[data-theme="terminal"] body {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgb(var(--color-foreground) / 0.015) 0px,
+    rgb(var(--color-foreground) / 0.015) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  background-size: 100% 3px;
+  background-attachment: fixed;
+}
+[data-theme="terminal"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 40%,
+    transparent 52%,
+    rgb(0 0 0 / 0.32) 100%
+  );
+}
+
+/* Aurora — soft system-blue / orange / indigo gradient wash */
+[data-theme="aurora"] body {
+  background-image:
+    radial-gradient(900px 500px at 0% -10%, rgb(0 122 255 / 0.08), transparent 60%),
+    radial-gradient(900px 500px at 110% 0%, rgb(255 149 0 / 0.05), transparent 55%),
+    radial-gradient(1100px 700px at 50% 130%, rgb(88 86 214 / 0.05), transparent 60%);
+  background-attachment: fixed;
+}
+
+/* Meadow — paper grain + subtle warm vignette */
+[data-theme="meadow"] body {
+  background-image:
+    radial-gradient(rgba(120, 90, 50, 0.06) 1px, transparent 1px),
+    radial-gradient(900px 500px at 50% 110%, rgba(95, 145, 70, 0.05), transparent 60%);
+  background-size:
+    16px 16px,
+    100% 100%;
+  background-attachment: fixed;
+}
+[data-theme="meadow"] body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  background: radial-gradient(
+    ellipse at 50% 50%,
+    transparent 65%,
+    rgba(120, 90, 50, 0.06) 100%
+  );
+}
+
+/* Quartz — faint trading grid */
+[data-theme="quartz"] body {
+  background-image:
+    linear-gradient(rgb(var(--color-border) / 0.4) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(var(--color-border) / 0.4) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-attachment: fixed;
+}
