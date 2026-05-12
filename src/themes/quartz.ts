@@ -51,6 +51,7 @@ export const quartzTheme: Theme = {
       hobbies: "Hobbies",
       finance: "Finance",
       meals: "Meals",
+      reading: "Reading",
     },
     greeting: {
       morning: "Good morning.",
@@ -163,6 +164,29 @@ export const quartzTheme: Theme = {
         recipes: { text: "Catalogue is empty.", cta: "Add an entry" },
         plans: { text: "No active schedules.", cta: "Open a schedule" },
         shopping: "Select a schedule to compile a manifest.",
+      },
+    },
+    reading: {
+      eyebrow: "Reading",
+      title: "Active titles",
+      description: "Books in motion, queue depth, finished volume.",
+      tabs: { books: "Books", sessions: "Sessions", highlights: "Highlights" },
+      statusLabels: {
+        wishlist: "Watchlist",
+        reading: "Open",
+        finished: "Closed",
+        dropped: "Cut",
+      },
+      actions: {
+        newBook: "New title",
+        logSession: "Log session",
+        addHighlight: "Add highlight",
+        markFinished: "Close position",
+      },
+      empty: {
+        books: { text: "No titles on the books.", cta: "Open one" },
+        sessions: "No sessions logged.",
+        highlights: "No highlights flagged.",
       },
     },
     footer: [

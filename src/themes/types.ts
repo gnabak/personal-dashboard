@@ -81,6 +81,7 @@ export interface ThemeCopy {
     hobbies: string;
     finance: string;
     meals: string;
+    reading: string;
   };
 
   greeting: {
@@ -186,6 +187,30 @@ export interface ThemeCopy {
       recipes: { text: string; cta: string };
       plans: { text: string; cta: string };
       shopping: string;
+    };
+  };
+
+  reading: {
+    eyebrow: string;
+    title: string;
+    description: string;
+    tabs: { books: string; sessions: string; highlights: string };
+    statusLabels: {
+      wishlist: string;
+      reading: string;
+      finished: string;
+      dropped: string;
+    };
+    actions: {
+      newBook: string;
+      logSession: string;
+      addHighlight: string;
+      markFinished: string;
+    };
+    empty: {
+      books: { text: string; cta: string };
+      sessions: string;
+      highlights: string;
     };
   };
 
