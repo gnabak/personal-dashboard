@@ -46,6 +46,7 @@ export const terminalTheme: Theme = {
       hobbies: "hobbies",
       finance: "finance",
       meals: "meals",
+      reading: "reading",
     },
     greeting: {
       morning: "good morning.",
@@ -153,6 +154,29 @@ export const terminalTheme: Theme = {
         recipes: { text: "// no recipes yet.", cta: "write one" },
         plans: { text: "// no plans yet.", cta: "draft a week" },
         shopping: "// pick a plan to generate a shopping list.",
+      },
+    },
+    reading: {
+      eyebrow: "ls ~/reading",
+      title: "what you're reading",
+      description: "shelves, sessions, highlights. press on, finish strong.",
+      tabs: { books: "books", sessions: "sessions", highlights: "highlights" },
+      statusLabels: {
+        wishlist: "wishlist",
+        reading: "reading",
+        finished: "finished",
+        dropped: "dropped",
+      },
+      actions: {
+        newBook: "new book",
+        logSession: "log session",
+        addHighlight: "add highlight",
+        markFinished: "mark finished",
+      },
+      empty: {
+        books: { text: "// no books on the shelf yet.", cta: "add one" },
+        sessions: "// no sessions logged yet.",
+        highlights: "// no highlights yet.",
       },
     },
     footer: [

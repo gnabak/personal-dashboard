@@ -5,6 +5,7 @@ import { TravelPage } from "@/pages/travel/TravelPage";
 import { HobbiesPage } from "@/pages/hobbies/HobbiesPage";
 import { FinancePage } from "@/pages/finance/FinancePage";
 import { MealsPage } from "@/pages/meals/MealsPage";
+import { ReadingPage } from "@/pages/reading/ReadingPage";
 
 export default function App() {
   return (
@@ -13,6 +14,7 @@ export default function App() {
         <Route path="/" element={<Overview />} />
         <Route path="/finance" element={<FinancePage />} />
         <Route path="/meals" element={<MealsPage />} />
+        <Route path="/reading" element={<ReadingPage />} />
         <Route path="/travel" element={<TravelPage />} />
         <Route path="/hobbies" element={<HobbiesPage />} />
         <Route path="*" element={<Navigate to="/" replace />} />

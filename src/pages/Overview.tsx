@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { useHobbiesStore } from "@/store/hobbies";
 import { useTravelStore } from "@/store/travel";
 import { useFinanceStore, computeGoalCurrent } from "@/store/finance";
+import { useReadingStore } from "@/store/reading";
 import { fmtCurrencyCompact } from "@/lib/finance";
 import { Button } from "@/components/ui/Button";
 import { PageHeader } from "@/components/layout/PageHeader";
@@ -42,6 +43,7 @@ export function Overview() {
   const holdings = useFinanceStore((s) => s.holdings);
   const finTransactions = useFinanceStore((s) => s.transactions);
   const finAccounts = useFinanceStore((s) => s.accounts);
+  const books = useReadingStore((s) => s.books);
   const theme = useTheme();
   const c = theme.copy.overview;
   const isMono = theme.id === "terminal";
@@ -353,6 +355,74 @@ export function Overview() {
           )}
         </div>
       </div>
+
+      {books.some((b) => b.status === "reading") && (
+        <div className="glass p-6 space-y-4">
+          <div className="flex items-center justify-between">
+            <SectionHeading theme={theme}>
+              {theme.copy.reading.statusLabels.reading}
+            </SectionHeading>
+            <Link
+              to="/reading"
+              className={cn(
+                "text-xs text-comment hover:text-primary inline-flex items-center gap-1 transition-colors",
+                isMono ? "font-mono" : "font-sans"
+              )}
+            >
+              {theme.copy.nav.reading}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
+          <ul className="grid gap-3 sm:grid-cols-2">
+            {books
+              .filter((b) => b.status === "reading")
+              .slice(0, 4)
+              .map((b) => {
+                const pct =
+                  b.totalPages && b.totalPages > 0
+                    ? Math.min(
+                        100,
+                        Math.round(((b.currentPage ?? 0) / b.totalPages) * 100)
+                      )
+                    : 0;
+                return (
+                  <li
+                    key={b.id}
+                    className="rounded-md border border-border bg-muted/40 p-3 space-y-1.5"
+                  >
+                    <div className="flex items-baseline justify-between gap-2">
+                      <span
+                        className={cn(
+                          "text-sm font-medium truncate",
+                          isMono ? "font-mono" : "font-sans"
+                        )}
+                      >
+                        {b.title}
+                      </span>
+                      {b.totalPages != null && (
+                        <span className="font-mono text-[11px] text-comment tabular-nums shrink-0">
+                          {b.currentPage ?? 0} / {b.totalPages}
+                        </span>
+                      )}
+                    </div>
+                    {b.totalPages != null && (
+                      <Progress
+                        value={pct}
+                        indicatorColor={b.coverColor}
+                        className="h-1"
+                      />
+                    )}
+                    {b.author && (
+                      <div className="text-[11px] text-comment truncate">
+                        {b.author}
+                      </div>
+                    )}
+                  </li>
+                );
+              })}
+          </ul>
+        </div>
+      )}
 
       {financeGoals.length > 0 && (
         <div className="glass p-6 space-y-4">

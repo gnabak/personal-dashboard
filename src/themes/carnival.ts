@@ -51,6 +51,7 @@ export const carnivalTheme: Theme = {
       hobbies: "Hobbies",
       finance: "Finance",
       meals: "Meals",
+      reading: "Reading",
     },
     greeting: {
       morning: "Morning! Let's go.",
@@ -157,6 +158,29 @@ export const carnivalTheme: Theme = {
         recipes: { text: "No recipes yet.", cta: "Add one" },
         plans: { text: "No plans yet.", cta: "Draft a week" },
         shopping: "Pick a plan to generate a shopping list.",
+      },
+    },
+    reading: {
+      eyebrow: "Reading",
+      title: "What you're reading",
+      description: "Stack the wins — finish one, start two.",
+      tabs: { books: "Books", sessions: "Sessions", highlights: "Highlights" },
+      statusLabels: {
+        wishlist: "Wishlist",
+        reading: "Reading",
+        finished: "Finished",
+        dropped: "Dropped",
+      },
+      actions: {
+        newBook: "New book",
+        logSession: "Log session",
+        addHighlight: "Add highlight",
+        markFinished: "Mark finished",
+      },
+      empty: {
+        books: { text: "No books yet — let's fix that.", cta: "Add one" },
+        sessions: "No sessions logged yet.",
+        highlights: "No highlights captured yet.",
       },
     },
     footer: [

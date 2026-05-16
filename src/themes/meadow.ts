@@ -53,6 +53,7 @@ export const meadowTheme: Theme = {
       hobbies: "Hobbies",
       finance: "Finance",
       meals: "Meals",
+      reading: "Reading",
     },
     greeting: {
       morning: "Good morning, friend.",
@@ -165,6 +166,30 @@ export const meadowTheme: Theme = {
         recipes: { text: "Recipe book is empty.", cta: "Write the first" },
         plans: { text: "No weeks planned.", cta: "Sketch a week" },
         shopping: "Pick a week to grow a shopping list.",
+      },
+    },
+    reading: {
+      eyebrow: "Reading",
+      title: "What you're reading",
+      description:
+        "A little library of books underway, next-on-the-shelf, and finished.",
+      tabs: { books: "Books", sessions: "Sessions", highlights: "Highlights" },
+      statusLabels: {
+        wishlist: "On the shelf",
+        reading: "Reading",
+        finished: "Finished",
+        dropped: "Set aside",
+      },
+      actions: {
+        newBook: "New book",
+        logSession: "Note a sitting",
+        addHighlight: "Save a line",
+        markFinished: "Mark finished",
+      },
+      empty: {
+        books: { text: "Shelves are bare.", cta: "Add a book" },
+        sessions: "No sittings recorded yet.",
+        highlights: "No lines saved yet.",
       },
     },
     footer: [
